@@ -1,0 +1,55 @@
+#!/bin/bash
+
+CURDIR=`dirname "$0"`
+cd $CURDIR
+
+# config
+USER="" # if the detected user is incorrect, change this
+
+UPSTREAM_URL="https://github.com/CougarCS/code-reviews"
+
+init () {
+	if ! git remote -v | grep -q upstream ; then
+		echo "Adding upstream remote at <$UPSTREAM_URL>"
+		git remote add upstream "$UPSTREAM_URL"
+	fi
+	if [ -z "$USER" ]; then
+		# get the username
+		# has to be between either a semi-colon or slash and contains 
+
+		# TODO use pattern substitution instead
+		USER=`git remote -v | grep -m 1 '\<origin\>' | sed 's,.*github.com[:/],,' | sed 's,\([^/]*\)/.*,\1,'`
+		echo "Detected GitHub user: $USER"
+	fi
+}
+
+current_problem() {
+	# TODO
+	# get branch name
+}
+
+choose_pr() {
+	select PR in `ls -d pr* | sort -r `; do
+		if [ -n "$PR" ]; then
+			break
+		fi
+	done
+}
+
+choose_action() {
+	# "Work on problem"
+		# git branch prXYZ/$USER
+		# && git checkout prXYZ/$USER
+		# && git push -u origin prXYZ/$USER
+	# "Update list of problems"
+		# git checkout master
+		# && git pull upstream master
+}
+
+
+init;
+
+choose_pr;
+echo "$PR"
+
+
