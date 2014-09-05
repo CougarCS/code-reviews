@@ -88,8 +88,12 @@ sub init {
 
 	if( $USER =~ /CougarCS/i ) {
 		die <<EOF
+WARNING:
+
 Repo owner can not be CougarCS. Please fork
-<@{[UPSTREAM_URL]}>
+
+    <@{[UPSTREAM_URL]}>
+
 and run
 
     \$ git clone git\@github.com:/<GITHUB_USER>/code-reviews.git
