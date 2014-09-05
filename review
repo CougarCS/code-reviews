@@ -37,6 +37,7 @@ choose_pr() {
 }
 
 choose_action() {
+	#list_and_choose( [ "Choose a problem to work on", "Update list of problems", "Exit" ] );
 	# "Work on problem"
 		# git branch prXYZ/$USER
 		# && git checkout prXYZ/$USER
@@ -44,6 +45,10 @@ choose_action() {
 	# "Update list of problems"
 		# git checkout master
 		# && git pull upstream master
+}
+
+list_and_choose() {
+
 }
 
 
