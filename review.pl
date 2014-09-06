@@ -126,22 +126,18 @@ sub get_current_branch {
 }
 
 sub get_list_of_problems {
-	master_blaster( sub {
-		my $prob_fh = IO::File->new( PROBLEM_LIST_FILE(), 'r');
-		my @list;
-		while( <$prob_fh> ) {
-			chomp;
-			my $line = $_;
-			my @split_line = split ':', $line;
-			my $info = {
-				name        => $split_line[0],
-				month       => $split_line[1],
-				description => $split_line[2],
-			};
-			unshift @list, $info;
-		}
-		return \@list;
-	});
+	my @prob_lines = git(qw(show master:prob.txt));
+	my @list;
+	for my $line (@prob_lines) {
+		my @split_line = split ':', $line;
+		my $info = {
+			name        => $split_line[0],
+			month       => $split_line[1],
+			description => $split_line[2],
+		};
+		unshift @list, $info;
+	}
+	return \@list;
 }
 
 =head2 master_blaster
@@ -164,7 +160,7 @@ sub master_blaster {
 	git(qw(checkout master)) unless $current_branch eq 'master';
 	my $return = $cb->();
 	git(qw(checkout), $current_branch) unless $current_branch eq 'master';
-	git(qw(stash pop));
+	git(qw(stash pop)) if git(qw(stash list));
 	$return;
 }
 
@@ -185,13 +181,13 @@ sub update_repo {
 sub action_loop {
 	# dispatch table
 	my $actions = {
-		1 => {
+		c => {
 			text => "Choose a problem to work on",
 			action => sub { choose_problem() },
 		},
-		2 => {
+		u => {
 			text => "Update list of problems",
-			action => sub { update_repo() },
+			action => sub { update_repo(); git(qw(rebase master)) },
 		},
 		z => {
 			text => "Exit",
@@ -203,6 +199,12 @@ sub action_loop {
 			. ( $current_branch eq 'master'
 				? 'None chosen'
 				: $current_branch ) );
+		if( $current_branch ne 'master' ) {
+			$actions->{s} = {
+				text => "Submit problem",
+				action => sub { submit_problem() },
+			};
+		}
 		my $choice = list_and_choose($actions);
 		if( exists $actions->{$choice} ) {
 			if( $actions->{$choice}{text} eq 'Exit' ) {
@@ -236,7 +238,6 @@ sub switch_problem {
 
 sub choose_problem {
 	my $problems = get_list_of_problems();
-	use DDP; p $problems;
 	my $actions;
 	my $idx = 1;
 	for my $prob (@$problems) {
@@ -249,7 +250,7 @@ sub choose_problem {
 		};
 		$idx++;
 	}
-	while (1) {}{
+	while (1) {
 		my $choice = list_and_choose( $actions );
 		if( exists $actions->{$choice} ) {
 			$actions->{$choice}{action}->();
