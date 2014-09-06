@@ -46,7 +46,7 @@ Code reviews!
 
 5. Submit a pull request by going to your pull request page or go to
 
-       <https://github.com/<GITHUB USER>/code-reviews/compare/>
+         <https://github.com/<GITHUB USER>/code-reviews/compare/>
 
    and compare against the branch for the problem.
 
