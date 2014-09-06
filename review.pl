@@ -182,9 +182,14 @@ sub update_repo {
 sub update_review_script {
 	# HACK ALERT
 	# for updates to review.pl
+
+	# NOTE this is safe because there is no shell interpolation
+	# dump the review.pl from master into current review.pl
 	system("git show master:review.pl > review.pl");
+
 	git(qw(add review.pl));
 	if( grep { /review\.pl/ } git(qw(status)) ) {
+		diag_out('Updating review.pl');
 		git(qw(add review.pl));
 		git(qw(commit -m), "[auto] update review.pl");
 	}
