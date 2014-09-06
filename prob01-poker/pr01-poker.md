@@ -24,12 +24,13 @@ Possible Hands:
 
 Example:
 
-+-------------------+---------------------+
+| Input             | Output              |
+| ----------------- | --------------------|
 |  2H,3D,KS,JS,JD   | Pair (JS,JD)        |
 |  2H,3H,KH,QH,8H   | Flush (Hearts)      |
 |  10C,JC,QC,KC,AC  | Royal Flush (Clubs) |
 |  5D,6D,7C,9S,QS   | High Card (Queen)   |
-+-------------------+---------------------+
+
 
 ## Input
 
