@@ -193,11 +193,7 @@ sub action_loop {
 			text => "Update list of problems",
 			action => sub { update_repo() },
 		},
-		3 => {
-			text => "Submit problem",
-			action => sub { submit_problem() },
-		},
-		4 => {
+		z => {
 			text => "Exit",
 		},
 	};
@@ -208,7 +204,6 @@ sub action_loop {
 				? 'None chosen'
 				: $current_branch ) );
 		my $choice = list_and_choose($actions);
-		use DDP; p $choice;
 		if( exists $actions->{$choice} ) {
 			if( $actions->{$choice}{text} eq 'Exit' ) {
 				last;
@@ -241,6 +236,7 @@ sub switch_problem {
 
 sub choose_problem {
 	my $problems = get_list_of_problems();
+	use DDP; p $problems;
 	my $actions;
 	my $idx = 1;
 	for my $prob (@$problems) {
