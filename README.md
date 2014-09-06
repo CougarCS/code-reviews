@@ -33,7 +33,7 @@ Code reviews!
    branches for each problem.
 
 4b. If you understand how to branch, you can choose not to use `review.pl`.
-    Use the convention of <problem name>/<Github username>.
+    Use the convention of {problem name}/{Github username}.
 
    For example,
 
