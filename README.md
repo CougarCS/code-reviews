@@ -23,7 +23,7 @@ Code reviews!
 3. Open up a bash prompt (Git Bash on Windows). Change your directory to the
    cloned repository:
 
-	   cd code-reviews
+	    cd code-reviews
 
 4a. Run the command:
    
@@ -46,7 +46,7 @@ Code reviews!
 
 5. Submit a pull request by going to your pull request page or go to
 
-	   <https://github.com/<GITHUB USER>/code-reviews/compare/>
+	    <https://github.com/<GITHUB USER>/code-reviews/compare/>
 
    and compare against the branch for the problem.
 
