@@ -122,7 +122,7 @@ Returns the name of the current branch in the git repo.
 
 =cut
 sub get_current_branch {
-	map { (my $s = $_) =~ s,[* ],,g; $s } grep { /\*/ } git(qw(branch --list));
+	( map { (my $s = $_) =~ s,[* ],,g; $s } grep { /\*/ } git(qw(branch --list)) )[0];
 }
 
 sub get_list_of_problems {
@@ -161,11 +161,11 @@ sub master_blaster {
 	my ($cb) = @_;
 	my $current_branch = get_current_branch();
 	git(qw(stash));
-	git(qw(checkout master));
-	my @return = $cb->();
-	git(qw(checkout), $current_branch);
+	git(qw(checkout master)) unless $current_branch eq 'master';
+	my $return = $cb->();
+	git(qw(checkout), $current_branch) unless $current_branch eq 'master';
 	git(qw(stash pop));
-	@return;
+	$return;
 }
 
 =head2 update_repo
@@ -203,22 +203,32 @@ sub action_loop {
 	};
 	while(1) {
 		my $current_branch = get_current_branch();
+		use DDP; p $current_branch;
 		diag_out( "Current problem: "
 			. ( $current_branch eq 'master'
 				? 'None chosen'
 				: $current_branch ) );
 		my $choice = list_and_choose($actions);
-		if( $actions->{$choice}{text} eq 'Exit' ) {
-			last;
+		use DDP; p $choice;
+		if( exists $actions->{$choice} ) {
+			if( $actions->{$choice}{text} eq 'Exit' ) {
+				last;
+			}
+			$actions->{$choice}{action}->();
+		} else {
+			diag_out('Invalid choice. Try again.');
 		}
-		$actions->{$choice}{action}->();
 	}
 }
 
 sub submit_problem {
 	my $current_branch = get_current_branch();
 	git_diag(qw(push -u origin), $current_branch);
-	diag_out("Go to <https://github.com/CougarCS/code-reviews/pulls> and make a new pull request using the branch name $current_branch.");
+	diag_out("Go to <https://github.com/$USER/code-reviews/compare/CougarCS:master...$USER:$current_branch> and make a new pull request");
+	diag_out("using the branch name $current_branch.");
+	diag_out("or go to <https://github.com/CougarCS/code-reviews/pulls> to see currently open pull requests");
+	map { (my $s = $_) =~ s,[* ],,g; $s } grep { /\*/ } git(qw(branch --list))
+	
 }
 
 sub switch_problem {
@@ -244,8 +254,16 @@ sub choose_problem {
 		};
 		$idx++;
 	}
-	my $choice = list_and_choose( $actions );
-	$actions->{$choice}{action}->();
+	while (1) {}{
+		my $choice = list_and_choose( $actions );
+		if( exists $actions->{$choice} ) {
+			$actions->{$choice}{action}->();
+			return;
+		}
+
+		# otherwise
+		diag_out('Invalid choice. Try again.');
+	}
 }
 
 sub list_and_choose {
