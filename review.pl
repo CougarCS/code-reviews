@@ -72,11 +72,6 @@ of the repo owner if it exists.
 
 =cut
 sub init {
-	if( not grep { /upstream/ } git(qw(remote -v)) ) {
-		diag_out "Adding upstream remote at <@{[UPSTREAM_URL]}>";
-		git_diag(qw(remote add upstream), UPSTREAM_URL);
-	}
-
 	unless( length $USER ) {
 		# get the username:
 		# has to be between either a semi-colon or slash and after the
@@ -99,6 +94,11 @@ and run
 
     \$ git clone git\@github.com:/<GITHUB_USER>/code-reviews.git
 EOF
+	}
+
+	if( not grep { /upstream/ } git(qw(remote -v)) ) {
+		diag_out "Adding upstream remote at <@{[UPSTREAM_URL]}>";
+		git_diag(qw(remote add upstream), UPSTREAM_URL);
 	}
 }
 
