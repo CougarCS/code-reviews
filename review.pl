@@ -176,6 +176,18 @@ sub update_repo {
 		diag_out git_diag(qw(pull upstream master));
 		git_diag(qw(push origin master));
 	});
+	update_review_script();
+}
+
+sub update_review_script {
+	# HACK ALERT
+	# for updates to review.pl
+	system("git show master:review.pl > review.pl");
+	git(qw(add review.pl));
+	if( grep { /review\.pl/ } git(qw(status)) ) {
+		git(qw(add review.pl));
+		git(qw(commit -m), "[auto] update review.pl");
+	}
 }
 
 sub action_loop {
@@ -187,7 +199,7 @@ sub action_loop {
 		},
 		u => {
 			text => "Update list of problems",
-			action => sub { update_repo(); git(qw(rebase master)) },
+			action => sub { update_repo(); },
 		},
 		z => {
 			text => "Exit",
