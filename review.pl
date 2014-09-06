@@ -187,7 +187,6 @@ sub update_review_script {
 	# dump the review.pl from master into current review.pl
 	system("git show master:review.pl > review.pl");
 
-	git(qw(add review.pl));
 	if( grep { /review\.pl/ } git(qw(status)) ) {
 		diag_out('Updating review.pl');
 		git(qw(add review.pl));
