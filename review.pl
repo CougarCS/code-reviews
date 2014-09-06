@@ -261,7 +261,7 @@ sub switch_problem {
 sub choose_problem {
 	my $problems = get_list_of_problems();
 	my $actions;
-	my $idx = 1;
+	my $idx = 'a';
 	for my $prob (@$problems) {
 		my $name = $prob->{name};
 		$actions->{$idx} = {
