@@ -203,7 +203,6 @@ sub action_loop {
 	};
 	while(1) {
 		my $current_branch = get_current_branch();
-		use DDP; p $current_branch;
 		diag_out( "Current problem: "
 			. ( $current_branch eq 'master'
 				? 'None chosen'
