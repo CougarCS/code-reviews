@@ -253,7 +253,7 @@ sub switch_problem {
 	my ($prob_name) = @_;
 	my $branch_name = "$prob_name/$USER";
 	unless( grep { /^$branch_name$/ } get_branches() ) {
-		git(qw(branch), $branch_name);
+		git(qw(branch), $branch_name, qw(master));
 	}
 	git(qw(checkout), $branch_name);
 }
