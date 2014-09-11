@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "poker.h"
-
-void usage(int argc, char** argv) {
-	fprintf(stderr, "Usage:\n  %s <filename>\n", argv[0]);
-}
-
+#define DEBUG
 
 int main(int argc, char** argv) {
-	char* buffer;
-	char* filename;
+	char *buffer, *filename;
 	FILE* fh;
 	card_t hand[HAND_SZ];
 	size_t len = 0;
@@ -29,6 +25,7 @@ int main(int argc, char** argv) {
 		exit(EXIT_FAILURE);
 
 	while( -1 != (read = getline(&buffer, &len, fh)) ) {
+		/* read the data from the line */
 		sscanf(buffer,
 			"%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c",
 			&( card_rank[0]), &( card_suit[0]),
@@ -38,7 +35,13 @@ int main(int argc, char** argv) {
 			&( card_rank[4]), &( card_suit[4])
 			);
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
-			printf("%s %c\n", card_rank[card_i], card_suit[card_i]);
+			hand[card_i].rank = string_to_rank(card_rank[card_i]);
+			hand[card_i].suit = card_suit[card_i];
+#ifdef DEBUG
+			fprintf(stderr, "%s(%d) %c\n",
+					card_rank[card_i], hand[card_i].rank,
+					card_suit[card_i]);
+#endif /* DEBUG */
 		}
 		printf("----\n");
 	}
@@ -48,4 +51,14 @@ int main(int argc, char** argv) {
 
 
 	return EXIT_SUCCESS;
+}
+
+/*
+ * usage(int argc, char** argv)
+ *
+ * Prints the usage message to stderr. The arguments argc and argv are the same
+ * as those passed to the main() function.
+ */
+void usage(int argc, char** argv) {
+	fprintf(stderr, "Usage:\n  %s <filename>\n", argv[0]);
 }

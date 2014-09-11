@@ -4,9 +4,8 @@
 #define BUFFER_SZ 255
 #define HAND_SZ 5
 
-typedef struct card {
-	int rank;
-	char suit;
-} card_t;
+#include "util.h"
+
+void usage(int argc, char** argv);
 
 #endif /* POKER_H */
