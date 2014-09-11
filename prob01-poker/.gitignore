@@ -1,1 +1,3 @@
 poker
+*.o
+t/tests
