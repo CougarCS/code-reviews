@@ -3,7 +3,6 @@
 #include <ctype.h>
 
 #include "poker.h"
-#define DEBUG
 
 int main(int argc, char** argv) {
 	char *buffer, *filename;
@@ -43,7 +42,9 @@ int main(int argc, char** argv) {
 					card_suit[card_i]);
 #endif /* DEBUG */
 		}
+#ifdef DEBUG
 		printf("----\n");
+#endif /* DEBUG */
 	}
 
 	if(buffer)

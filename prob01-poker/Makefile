@@ -1,16 +1,17 @@
+CPPFLAGS:= -DDEBUG
 OBJECTS:= util.o
 run: poker
 	./poker data.txt
 
 poker: poker.c $(OBJECTS)
-	$(CC) -o $@ $^
+	$(LINK.c) -o $@ $^
 
 test: t/tests
 	prove -v -e '' $^
 
 t/tests: tests.c $(OBJECTS)
 	-@mkdir t 2>&1 > /dev/null
-	$(CC) -o $@ $^
+	$(LINK.c) -o $@ $^
 
 clean:
 	-rm -f *.o
