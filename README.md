@@ -1,6 +1,19 @@
 Code reviews!
 =============
 
+## Tips
+
+1. Code in any language you want to.
+
+2. You don't need to have the complete solution before you submit a pull
+   request. It's better to get feedback as you work through the problem.
+
+3.  Watch the <https://github.com/CougarCS/code-reviews> repository
+    to receive all code reviews for everyone in your e-mail. This way you can
+    learn from more people.
+
+4. Have fun!
+
 ## Instructions
 
 0. Install git.
@@ -50,5 +63,3 @@ Code reviews!
 
    and compare against the branch for the problem.
 
-Optional step: Watch the <https://github.com/CougarCS/code-reviews> repository
-to recieve all code reviews for everyone in your e-mail.
