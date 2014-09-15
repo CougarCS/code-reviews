@@ -31,3 +31,7 @@ rank_t string_to_rank(const char* rank_string) {
 #endif /* DEBUG */
 	return -1; /* error */
 }
+
+int isflush( card_t* hand ) {
+	/* TODO */
+}
