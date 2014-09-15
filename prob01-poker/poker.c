@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "poker.h"
 
@@ -13,6 +14,9 @@ int main(int argc, char** argv) {
 	int card_i;
 	char card_rank[5][3];
 	char card_suit[5];
+
+	int rank_count[ RANK_MAX + 1 ];
+	int rank_count_i;
 
 	if( argc != 2 ) {
 		usage(argc, argv);
@@ -42,6 +46,18 @@ int main(int argc, char** argv) {
 					card_suit[card_i]);
 #endif /* DEBUG */
 		}
+
+		memset( rank_count, 0, sizeof(rank_count) );
+		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
+			rank_count[ hand[card_i].rank ]++;
+		}
+#ifdef DEBUG
+		for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
+			printf("rank_count[%2d] = %d\n", rank_count_i, rank_count[rank_count_i]);
+		}
+#endif /* DEBUG */
+
+
 #ifdef DEBUG
 		printf("----\n");
 #endif /* DEBUG */

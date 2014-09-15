@@ -8,6 +8,9 @@ typedef enum {
 	card_J, card_Q, card_K, card_A,
 } rank_t;
 
+#define RANK_MIN (card_2)
+#define RANK_MAX (card_A)
+
 typedef struct card {
 	rank_t rank;
 	char suit;
