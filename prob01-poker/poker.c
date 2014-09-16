@@ -31,11 +31,11 @@ int main(int argc, char** argv) {
 		/* read the data from the line */
 		sscanf(buffer,
 			"%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c",
-			&( card_rank[0]), &( card_suit[0]),
-			&( card_rank[1]), &( card_suit[1]),
-			&( card_rank[2]), &( card_suit[2]),
-			&( card_rank[3]), &( card_suit[3]),
-			&( card_rank[4]), &( card_suit[4])
+			&card_rank[0], &card_suit[0],
+			&card_rank[1], &card_suit[1],
+			&card_rank[2], &card_suit[2],
+			&card_rank[3], &card_suit[3],
+			&card_rank[4], &card_suit[4]
 			);
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
 			hand[card_i].rank = string_to_rank(card_rank[card_i]);
