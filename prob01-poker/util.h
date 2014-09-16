@@ -17,5 +17,6 @@ typedef struct card {
 } card_t;
 
 rank_t string_to_rank(const char* rank_string);
+int cmpcardp(const void* c1, const void* c2);
 
 #endif /* UTIL_H */

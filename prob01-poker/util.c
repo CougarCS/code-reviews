@@ -35,3 +35,12 @@ rank_t string_to_rank(const char* rank_string) {
 int isflush( card_t* hand ) {
 	/* TODO */
 }
+
+/*
+ * int cmpcardp(const void* c1, const void* c2)
+ *
+ * comparison function for qsort().
+ */
+int cmpcardp(const void* c1, const void* c2) {
+	return ((card_t*)c1)->rank - ((card_t*)c2)->rank;
+}

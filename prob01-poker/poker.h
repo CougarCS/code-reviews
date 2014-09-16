@@ -6,6 +6,4 @@
 
 #include "util.h"
 
-void usage(int argc, char** argv);
-
 #endif /* POKER_H */

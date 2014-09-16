@@ -5,6 +5,10 @@
 
 #include "poker.h"
 
+void usage(int argc, char** argv);
+void dump_hand( card_t* hand, size_t nmemb );
+void dump_rank_count( int* rank_count );
+
 int main(int argc, char** argv) {
 	char *buffer, *filename;
 	FILE* fh;
@@ -40,21 +44,23 @@ int main(int argc, char** argv) {
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
 			hand[card_i].rank = string_to_rank(card_rank[card_i]);
 			hand[card_i].suit = card_suit[card_i];
-#ifdef DEBUG
-			fprintf(stderr, "%s(%d) %c\n",
-					card_rank[card_i], hand[card_i].rank,
-					card_suit[card_i]);
-#endif /* DEBUG */
 		}
+
+#ifdef DEBUG
+		dump_hand(hand, HAND_SZ);
+#endif /* DEBUG */
+		qsort(hand, HAND_SZ, sizeof(hand[0]), cmpcardp);
+#ifdef DEBUG
+		printf("--\n");
+		dump_hand(hand, HAND_SZ);
+#endif /* DEBUG */
 
 		memset( rank_count, 0, sizeof(rank_count) );
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
 			rank_count[ hand[card_i].rank ]++;
 		}
 #ifdef DEBUG
-		for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
-			printf("rank_count[%2d] = %d\n", rank_count_i, rank_count[rank_count_i]);
-		}
+		/*dump_rank_count(rank_count);*/
 #endif /* DEBUG */
 
 
@@ -78,4 +84,20 @@ int main(int argc, char** argv) {
  */
 void usage(int argc, char** argv) {
 	fprintf(stderr, "Usage:\n  %s <filename>\n", argv[0]);
+}
+
+void dump_hand( card_t* hand, size_t nmemb ) {
+	int card_i;
+	for( card_i = 0; card_i < nmemb; card_i++ ) {
+		fprintf(stderr, "%d-%c\n",
+				hand[card_i].rank,
+				hand[card_i].suit);
+	}
+}
+
+void dump_rank_count( int* rank_count ) {
+	int rank_count_i;
+	for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
+		printf("rank_count[%2d] = %d\n", rank_count_i, rank_count[rank_count_i]);
+	}
 }
