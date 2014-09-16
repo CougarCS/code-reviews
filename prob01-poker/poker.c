@@ -56,6 +56,48 @@ int main(int argc, char** argv) {
 		}
 		/*dump_rank_count(rank_count);[> DEBUG <]*/
 
+		/* TODO */
+		int royal_flush, straight_flush, four_of_a_kind, full_house,
+		    flush, straight, three_of_a_kind, two_pair, pair;
+		if( royal_flush ) {
+			/* TODO */
+			/*10. Royal Flush: 10, Jack, Queen, King, Ace of the
+			 * same suit, e.g.  10C,JC,QC,KC,AC*/
+		} else if( straight_flush ) {
+			/* TODO */
+			/*9.  Straight Flush: five cards of the same suit, in
+			 * sequence, e.g. 5D, 6D, 7D, 8D, 9D.*/
+		} else if( four_of_a_kind ) {
+			/* TODO */
+			/*8.  Four of a Kind: four cards of the same card
+			 * value*/
+		} else if( full_house ) {
+			/* TODO */
+			/*7.  Full House: three of a kind and a pair*/
+		} else if( flush ) {
+			/* TODO */
+			/*6.  Flush: five cards of the same suit, but not in
+			 * sequence, e.g.  5H,8H,10H,QH,AH*/
+		} else if( straight ) {
+			/* TODO */
+			/*5.  Straight: a sequence of cards, not of the same
+			 * suit, e.g.  5H,6C,7S,8D,9S*/
+		} else if( three_of_a_kind ) {
+			/* TODO */
+			/*4.  Three of a Kind: exactly three cards with the
+			 * same card value*/
+		} else if( two_pair ) {
+			/* TODO */
+			/*3.  Two Pair: two different pairs of cards: e.g. two
+			 * fives and two tens*/
+		} else if( pair ) {
+			/* TODO */
+			/*2.  Pair: exactly 2 cards with the same card value,
+			 * e.g., a five of hearts and a five of clubs.*/
+		} else { /* high card */
+			/* TODO */
+			/*1.  High Card: if there are no pairs*/
+		}
 
 		printf("----\n");
 	}
