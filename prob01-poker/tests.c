@@ -32,9 +32,20 @@ void done_testing() {
 
 
 int main(int argc, char** argv) {
-	plan(2);
+	plan(2 + 5);
+	/* 2 */
 	ok( string_to_rank("Z") == -1, "Z is invalid rank");
 	ok( string_to_rank("J") == card_J,  "jack parsed correctly");
+
+	card_t c1 = { card_10, 'D' };
+	card_t c2 = { card_J , 'D' };
+	card_t c3 = { card_J , 'S' };
+	/* 5 */
+	ok(cmpcardp( &c1, &c2 ) < 0 , "ordering: rank");
+	ok(cmpcardp( &c2, &c1 ) > 0 , "ordering: rank");
+	ok(cmpcardp( &c2, &c3 ) < 0 , "ordering: suit");
+	ok(cmpcardp( &c3, &c2 ) > 0 , "ordering: suit");
+	ok(cmpcardp( &c3, &c3 ) == 0, "ordering: equal");
 
 	done_testing();
 	return 0;

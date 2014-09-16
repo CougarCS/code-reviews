@@ -36,11 +36,25 @@ int isflush( card_t* hand ) {
 	/* TODO */
 }
 
+int suit_ordering( char suit ) {
+	switch( suit ) {
+		case 'H': return 1;
+		case 'C': return 2;
+		case 'D': return 3;
+		case 'S': return 4;
+	}
+}
+
 /*
  * int cmpcardp(const void* c1, const void* c2)
  *
  * comparison function for qsort().
  */
 int cmpcardp(const void* c1, const void* c2) {
-	return ((card_t*)c1)->rank - ((card_t*)c2)->rank;
+	int rank_diff = ((card_t*)c1)->rank - ((card_t*)c2)->rank;
+	if( rank_diff != 0 ) {
+		return rank_diff;
+	} else {
+		return suit_ordering( ((card_t*)c1)->suit ) - suit_ordering( ((card_t*)c2)->suit );
+	}
 }
