@@ -46,27 +46,18 @@ int main(int argc, char** argv) {
 			hand[card_i].suit = card_suit[card_i];
 		}
 
-#ifdef DEBUG
-		dump_hand(hand, HAND_SZ);
-#endif /* DEBUG */
+		/*dump_hand(hand, HAND_SZ);[>DEBUG<]*/
 		qsort(hand, HAND_SZ, sizeof(hand[0]), cmpcardp);
-#ifdef DEBUG
-		printf("--\n");
-		dump_hand(hand, HAND_SZ);
-#endif /* DEBUG */
+		/*dump_hand(hand, HAND_SZ);[>DEBUG<]*/
 
 		memset( rank_count, 0, sizeof(rank_count) );
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
 			rank_count[ hand[card_i].rank ]++;
 		}
-#ifdef DEBUG
-		/*dump_rank_count(rank_count);*/
-#endif /* DEBUG */
+		/*dump_rank_count(rank_count);[> DEBUG <]*/
 
 
-#ifdef DEBUG
 		printf("----\n");
-#endif /* DEBUG */
 	}
 
 	if(buffer)
