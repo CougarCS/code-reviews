@@ -154,11 +154,11 @@ sub master_blaster {
 	# :-P
 	#
 	# - zaki
-	my ($cb) = @_;
+	my ($bartertown) = @_;
 	my $current_branch = get_current_branch();
 	git(qw(stash));
 	git(qw(checkout master)) unless $current_branch eq 'master';
-	my $return = $cb->();
+	my $return = $bartertown->();
 	git(qw(checkout), $current_branch) unless $current_branch eq 'master';
 	git(qw(stash pop)) if git(qw(stash list));
 	$return;
