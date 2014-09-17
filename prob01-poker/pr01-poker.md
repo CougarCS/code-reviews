@@ -22,6 +22,10 @@ Possible Hands:
 10. Royal Flush: 10, Jack, Queen, King, Ace of the same suit, e.g.
     10C,JC,QC,KC,AC
 
+Note: An ace (A) can be a low card only when determining straight and straight
+flush hands: AH,2H,3H,4H,5C is a straight hand (sequential, but not the same
+suit).
+
 Example:
 
 | Input             | Output              |
