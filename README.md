@@ -56,7 +56,8 @@ Code reviews!
 	   # Github username is foo
 	   git clone https://github.com/foo/code-reviews
 	   cd code-reviews
-	   git checkout -b prob01-poker/foo
+	   # you must use upstream/master as your start point to have a clean pull request
+	   git checkout -b prob01-poker/foo upstream/master
 	   # solve problem
 	   git push origin prob01-poker/foo
 

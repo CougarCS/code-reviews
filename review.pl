@@ -100,6 +100,7 @@ EOF
 		diag_out "Adding upstream remote at <@{[UPSTREAM_URL]}>";
 		git_diag(qw(remote add upstream), UPSTREAM_URL);
 	}
+	git_diag(qw(fetch upstream));
 }
 
 =head2 get_branches
@@ -252,7 +253,7 @@ sub switch_problem {
 	my ($prob_name) = @_;
 	my $branch_name = "$prob_name/$USER";
 	unless( grep { /^$branch_name$/ } get_branches() ) {
-		git(qw(branch), $branch_name, qw(master));
+		git(qw(branch), $branch_name, qw(upstream/master)); # start branch is upstream/master --- safest
 	}
 	git(qw(checkout), $branch_name);
 }
