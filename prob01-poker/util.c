@@ -32,10 +32,6 @@ rank_t string_to_rank(const char* rank_string) {
 	return -1; /* error */
 }
 
-int isflush( card_t* hand ) {
-	/* TODO */
-}
-
 int suit_ordering( char suit ) {
 	switch( suit ) {
 		case 'H': return 1;
@@ -57,4 +53,25 @@ int cmpcardp(const void* c1, const void* c2) {
 	} else {
 		return suit_ordering( ((card_t*)c1)->suit ) - suit_ordering( ((card_t*)c2)->suit );
 	}
+}
+
+/* hand_is_sequential(card_t* hand, size_t nmemb )
+ *
+ * Requires: hand is sorted.
+ *
+ * Returns: True if hand is sequential in rank. False otherwise.
+ */
+int hand_is_sequential(card_t* hand, size_t nmemb ) {
+	int card_i;
+	rank_t prev_rank;
+	if( nmemb > 0 ) {
+		prev_rank = hand[0].rank;
+	}
+	for (card_i = 1; card_i < nmemb; card_i++) {
+		if( prev_rank + 1 != hand[card_i].rank ) {
+			return 0;
+		}
+		prev_rank = hand[card_i].rank; /* update for next iteration */
+	}
+	return 1;
 }

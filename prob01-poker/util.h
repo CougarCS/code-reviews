@@ -18,5 +18,6 @@ typedef struct card {
 
 rank_t string_to_rank(const char* rank_string);
 int cmpcardp(const void* c1, const void* c2);
+int hand_is_sequential(card_t* hand, size_t nmemb );
 
 #endif /* UTIL_H */
