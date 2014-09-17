@@ -8,11 +8,14 @@ Code reviews!
 2. You don't need to have the complete solution before you submit a pull
    request. It's better to get feedback as you work through the problem.
 
-3.  Watch the <https://github.com/CougarCS/code-reviews> repository
-    to receive all code reviews for everyone in your e-mail. This way you can
-    learn from more people.
+3. To make it easier for others to run your code, please include a build script
+   and README detailing how to build, run, and test your code.
 
-4. Have fun!
+4. Watch the <https://github.com/CougarCS/code-reviews> repository
+   to receive all code reviews for everyone in your e-mail. This way you can
+   learn from more people.
+
+5. Have fun!
 
 ## Instructions
 
