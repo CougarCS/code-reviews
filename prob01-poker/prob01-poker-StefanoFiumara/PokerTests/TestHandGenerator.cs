@@ -20,7 +20,7 @@ namespace PokerTests
             hand.Add(new PokerCard(CardRanks.Rank_3, CardSuits.DIAMONDS));
             hand.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
             hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
-            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.HEARTS));
             return hand;
         }
 
@@ -36,7 +36,13 @@ namespace PokerTests
 
         public static List<PokerCard> GetHand_Flush()
         {
-            return GetHand_UnsortedRank(); //for legibility in the test class
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_6, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_3, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
+            return hand;
         }
 
 
@@ -60,6 +66,28 @@ namespace PokerTests
             hand.Add(new PokerCard(CardRanks.Rank_4, CardSuits.SPADES));
             hand.Add(new PokerCard(CardRanks.Rank_5, CardSuits.DIAMONDS));
             hand.Add(new PokerCard(CardRanks.Rank_3, CardSuits.CLOVER));
+            return hand;
+        }
+
+        public static List<PokerCard> GetHand_StraightFlush()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_6, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_3, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_4, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_5, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
+            return hand;
+        }
+
+        public static List<PokerCard> GetHand_RoyalFlush()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_J, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_Q, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_K, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_A, CardSuits.SPADES));
             return hand;
         }
     }
