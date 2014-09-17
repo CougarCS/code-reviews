@@ -48,7 +48,6 @@ namespace prob01
                 if (card.Length != 2 && card.Length != 3)
                     return false;
                 Card c = getCard(card);
-                Console.WriteLine("Checking..{0}", c.ToString());
                 if (!cardValues.Contains(c.Value) || !cardSuits.Contains(c.Suit))
                     return false;
             }
@@ -63,15 +62,17 @@ namespace prob01
             }
             Hand = Card.Sort(Hand);
            
-            bool straight = checkStraight(Hand.ToArray());
-            bool flush = checkFlush(Hand.ToArray());
-            List<int> cardCount = countCards(Hand);
+            bool straight = checkStraight(Hand);
+            bool flush = checkFlush(Hand);
+            List<int> cardCount = new List<int>();
+            cardCount.AddRange(countCards(Hand));
+            int fOAC = cardCount.IndexOf(4), thrOAC = cardCount.IndexOf(3), pair1 = cardCount.IndexOf(2), pair2 = cardCount.LastIndexOf(2);
            
             if (straight)
             {
                 if (flush)
                 {
-                    if (Card.LowestCard(Hand.ToArray()).Value == "10")
+                    if (Card.LowestCard(Hand).Value == "10")
                     {
                         Console.WriteLine("Royal Flush ({0})", Hand[0].Suit);
                     }
@@ -88,60 +89,49 @@ namespace prob01
             {
                 Console.WriteLine("Flush({0})", Hand[0].Suit);
             }
-            else if (cardCount.Contains(4))
+            else if (fOAC > -1)
             {
-                Console.WriteLine("Four of a kind({0})", cardValues[cardCount.IndexOf(4)]);
+                Console.WriteLine("Four of a kind({0})", cardValues[fOAC]);
             }
-            else if (cardCount.Contains(3))
+            else if (thrOAC > -1 && pair1 > -1)
             {
-                if (cardCount.Contains(2))
-                {
-                    Console.WriteLine("Full House({0},{1})", cardValues[cardCount.IndexOf(3)], cardValues[cardCount.IndexOf(2)]);
-                }
-                else{
-                Console.WriteLine("Three of a kind({0})", cardValues[cardCount.IndexOf(3)]);
-                }
+                Console.WriteLine("Full House({0},{1})", cardValues[thrOAC], cardValues[pair1]);
             }
-            else if (cardCount.Contains(2))
+            else if (thrOAC > -1)
             {
-                if (cardCount.Contains(3))
+                Console.WriteLine("Three of a kind({0})", cardValues[thrOAC]);
+                
+            }
+            else if (pair1 > -1)
+            {
+                if (pair2 > -1 && pair2 != pair1)
                 {
-                    Console.WriteLine("Full House({0},{1})", cardValues[cardCount.IndexOf(3)], cardValues[cardCount.IndexOf(2)]);
-                }
-                if (cardCount.IndexOf(2) > 0 && (cardCount.IndexOf(2, cardCount.IndexOf(2)) + 1 < cardCount.Count && cardCount.IndexOf(2, cardCount.IndexOf(2) + 1) > 0))
-                {
-                    Console.WriteLine("Two Pairs({0},{1})", cardValues[cardCount.IndexOf(2)], cardValues[cardCount.IndexOf(2, cardCount.IndexOf(2) + 1)]);
+                    Console.WriteLine("Two Pairs({0},{1})", cardValues[pair1], cardValues[pair2]);
                 }
                 else
                 {
-                    Console.WriteLine("Pair({0})", cardValues[cardCount.IndexOf(3)]);
+                    Console.WriteLine("Pair({0})", cardValues[pair1]);
                 }
             }
             else
             {
-                Console.WriteLine("High Card({0})", Card.HighestCard(Hand.ToArray()));
+                Console.WriteLine("High Card({0})", Card.HighestCard(Hand));
             }
             
             
         }
-        private static List<int> countCards(List<Card> hand)
+        private static int[] countCards(List<Card> hand)
         {
-            int[] cardCount = new int[cardValues.Count];
+            int[] cardCount = new int[12];
             foreach (Card card in hand)
             {
-                if (cardCount[cardValues.IndexOf(card.Value)] <= 0)
-                    cardCount[cardValues.IndexOf(card.Value)] = 1;
-                else
-                    cardCount[cardValues.IndexOf(card.Value)] += 1;
+                cardCount[cardValues.IndexOf(card.Value)]++;
             }
-
-            List<int> temp = new List<int>();
-            temp.AddRange(cardCount);
-            return temp;
+            return cardCount;
         }
-        private static bool checkFlush(Card[] hand)
+        private static bool checkFlush(List<Card> hand)
         {
-            for (int i = 0; i < hand.Length; i++)
+            for (int i = 0; i < hand.Count; i++)
             {
                 if (hand[i].Suit != hand[0].Suit)
                     return false;
@@ -149,20 +139,11 @@ namespace prob01
             return true;
         }
         
-        private static bool checkStraight(Card[] hand)
+        private static bool checkStraight(List<Card> hand)
         {
-            Card lowestCard = Card.Empty;
-            foreach (Card card in hand)
-            {
-                if (lowestCard == Card.Empty || (cardValues.IndexOf(card.Value) < cardValues.IndexOf(lowestCard.Value)))
-                {
-                    lowestCard = card;
-                }
-            }
             for (int i = 1; i < 5; i++)
             {
-                
-                int nextCard = cardValues.IndexOf(lowestCard.Value) + i;
+                int nextCard = cardValues.IndexOf(Card.LowestCard(hand).Value) + i;
                 
                 if (nextCard > cardValues.Count || nextCard < 0)
                     return false;
@@ -179,11 +160,11 @@ namespace prob01
             }
             return true;
         }
-        private static bool searchHand(Card[] hand, Card card)
+        private static bool searchHand(List<Card> hand, Card card)
         {
             if (hand.Contains(card))
                 return true;
-            for (int i = 0; i < hand.Length; i++)
+            for (int i = 0; i < hand.Count; i++)
             {
                 if (card.Value == "*" && (hand[i].Suit == card.Suit))
                     return true;
@@ -204,6 +185,10 @@ namespace prob01
         {
             public string Value;
             public string Suit;
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
             public static Card Empty
             {
                 get { return new Card() { Value = "", Suit = "" }; }
@@ -235,13 +220,13 @@ namespace prob01
                 List<Card> sorted = new List<Card>();
                 while (temp.Count > 0)
                 {
-                    Card lowest = LowestCard(temp.ToArray());
+                    Card lowest = LowestCard(temp);
                     sorted.Add(lowest);
                     temp.Remove(lowest);
                 }
                 return sorted;
             }
-            public static Card LowestCard(Card[] cards)
+            public static Card LowestCard(List<Card> cards)
             {
                 Card lowest = Card.Empty;
                 foreach (Card c in cards)
@@ -253,7 +238,7 @@ namespace prob01
                 }
                 return lowest;
             }
-            public static Card HighestCard(Card[] cards)
+            public static Card HighestCard(List<Card> cards)
             {
                 Card highest = Card.Empty;
                 foreach (Card c in cards)
