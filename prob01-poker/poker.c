@@ -61,8 +61,20 @@ int main(int argc, char** argv) {
 		/*dump_rank_count(rank_count);[> DEBUG <]*/
 
 		int n_of_a_kind[5] = { 0, 0, 0, 0, 0 };
+		int three_of_a_kind_rank = -1;
+		int two_of_a_kind_rank_0 = -1;
+		int two_of_a_kind_rank_1 = -1;
 		for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
 			n_of_a_kind[ rank_count[rank_count_i] ]++;
+			if( rank_count[rank_count_i] ==  3 ) {
+				three_of_a_kind_rank = rank_count_i;
+			}
+			if( rank_count[rank_count_i] ==  2 ) {
+				if( two_of_a_kind_rank_0 == -1 )
+					two_of_a_kind_rank_0 = rank_count_i;
+				else
+					two_of_a_kind_rank_1 = rank_count_i;
+			}
 		}
 
 		int is_sequential = hand_is_sequential( hand, HAND_SZ );
@@ -117,7 +129,10 @@ int main(int argc, char** argv) {
 		} else if( three_of_a_kind ) {
 			/*4.  Three of a Kind: exactly three cards with the
 			 * same card value*/
-			printed_width = printf("Three of a kind");
+			int three_kind_first = hand[1].rank == hand[2].rank; /* 3 (3) (3) * * */
+			printed_width = printf("Three of a kind (rank = %s)",
+					three_kind_first ? rank_t_string[ hand[0].rank ] : rank_t_string[ hand[3].rank ]
+					);
 		} else if( two_pair ) {
 			/*3.  Two Pair: two different pairs of cards: e.g. two
 			 * fives and two tens*/
