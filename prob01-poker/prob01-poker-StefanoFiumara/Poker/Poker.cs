@@ -62,19 +62,19 @@ namespace PokerLib
 
         public static bool IsStraight(List<PokerCard> hand)
         {
-            //TODO: Check for straight with Ace Low
             hand = SortByRank(hand);
 
-            var current = hand.ElementAt(0).Rank;
-            for (int i = 1; i < hand.Count; i++)
-            {
-                if (++current != hand.ElementAt(i).Rank)
-                {
-                    return false;
-                }
-            }
+            return hand.ElementAt(hand.Count - 1).Rank - hand.ElementAt(0).Rank == 4 || IsStraightAceLow(hand);
+        }
 
-            return true;
+        private static bool IsStraightAceLow(List<PokerCard> hand)
+        {
+            //sort is already done by IsStraight();
+            return hand.ElementAt(0).Rank == CardRanks.Rank_2 &&
+                   hand.ElementAt(1).Rank == CardRanks.Rank_3 &&
+                   hand.ElementAt(2).Rank == CardRanks.Rank_4 &&
+                   hand.ElementAt(3).Rank == CardRanks.Rank_5 &&
+                   hand.ElementAt(4).Rank == CardRanks.Rank_A;
         }
     }
 }
