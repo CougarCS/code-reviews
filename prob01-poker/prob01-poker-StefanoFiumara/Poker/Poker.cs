@@ -59,5 +59,22 @@ namespace PokerLib
 
             return hand.ElementAt(0).Suit == hand.ElementAt(hand.Count - 1).Suit;
         }
+
+        public static bool IsStraight(List<PokerCard> hand)
+        {
+            //TODO: Check for straight with Ace Low
+            hand = SortByRank(hand);
+
+            var current = hand.ElementAt(0).Rank;
+            for (int i = 1; i < hand.Count; i++)
+            {
+                if (++current != hand.ElementAt(i).Rank)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
