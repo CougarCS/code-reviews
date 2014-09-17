@@ -6,6 +6,9 @@ run: poker
 poker: poker.c $(OBJECTS)
 	$(LINK.c) -o $@ $^
 
+diff: poker
+	bash -c "diff <($(MAKE) run) expect.txt"
+
 test: t/tests
 	prove -v -e '' $^
 
@@ -17,4 +20,4 @@ clean:
 	-rm -f *.o
 	-rm t/tests poker
 
-.PHONY: run clean
+.PHONY: run clean diff
