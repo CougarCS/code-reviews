@@ -66,6 +66,12 @@ namespace PokerTests
         }
 
         [Test]
+        public void TestHandIsNotStraight()
+        {
+            Assert.IsFalse(Poker.IsStraight(TestHandGenerator.GetHand_UnsortedRank()));
+        }
+
+        [Test]
         public void TestHandIsStraightWithAceLow()
         {
             Assert.IsTrue(Poker.IsStraight(TestHandGenerator.GetHand_StraightAceLow()));
