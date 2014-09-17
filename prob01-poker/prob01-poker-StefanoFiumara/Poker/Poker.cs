@@ -52,5 +52,12 @@ namespace PokerLib
         {
             return hand.OrderBy(x => x.Suit).ToList();
         }
+
+        public static bool IsFlush(List<PokerCard> hand)
+        {
+            hand = SortBySuit(hand);
+
+            return hand.ElementAt(0).Suit == hand.ElementAt(hand.Count - 1).Suit;
+        }
     }
 }

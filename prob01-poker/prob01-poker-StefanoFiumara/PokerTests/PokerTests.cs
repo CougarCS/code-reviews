@@ -16,31 +16,10 @@ namespace PokerTests
     [TestFixture]
     class PokerTests
     {
-
         [Test]
         public void CanaryTest()
         {
             Assert.IsTrue(true);
-        }
-        public List<PokerCard> GetHand_UnsortedRank()
-        {
-            var hand = new List<PokerCard>();
-            hand.Add(new PokerCard(CardRanks.Rank_6, CardSuits.DIAMONDS));
-            hand.Add(new PokerCard(CardRanks.Rank_3, CardSuits.DIAMONDS));
-            hand.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
-            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
-            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
-            return hand;
-        }
-
-        public List<PokerCard> GetHand_UnsortedSuit()
-        {
-            var hand = new List<PokerCard>();
-            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.SPADES));
-            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.CLOVER));
-            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.HEARTS));
-            hand.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
-            return hand;
         }
 
         [Test]
@@ -53,7 +32,7 @@ namespace PokerTests
             expected.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
             expected.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
 
-            CollectionAssert.AreEqual(expected, Poker.SortByRank(GetHand_UnsortedRank()));
+            CollectionAssert.AreEqual(expected, Poker.SortByRank(HandGenerator.GetHand_UnsortedRankFlush()));
         }
 
         [Test]
@@ -65,7 +44,13 @@ namespace PokerTests
             expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.CLOVER));
             expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.SPADES));
 
-            CollectionAssert.AreEqual(expected, Poker.SortBySuit(GetHand_UnsortedSuit()));
+            CollectionAssert.AreEqual(expected, Poker.SortBySuit(HandGenerator.GetHand_UnsortedSuit()));
+        }
+
+        [Test]
+        public void TestHandIsFlush()
+        {
+            Assert.IsTrue(Poker.IsFlush(HandGenerator.GetHand_UnsortedRankFlush()));
         }
     }
 }
