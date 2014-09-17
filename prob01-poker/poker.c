@@ -33,6 +33,10 @@ int main(int argc, char** argv) {
 
 	while( -1 != (read = getline(&buffer, &len, fh)) ) {
 		/* read the data from the line */
+		char* new_line_idx = index( buffer, '\n');
+		if( new_line_idx != NULL ) {
+			*new_line_idx = '\0'; /* Get rid of the newline. This will be useful for later. */
+		}
 		sscanf(buffer,
 			"%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c,%[0-9JQKA]%c",
 			&card_rank[0], &card_suit[0],
@@ -56,50 +60,69 @@ int main(int argc, char** argv) {
 		}
 		/*dump_rank_count(rank_count);[> DEBUG <]*/
 
-		/* TODO */
-		int royal_flush, straight_flush, four_of_a_kind, full_house,
-		    flush, straight, three_of_a_kind, two_pair, pair;
-		if( royal_flush ) {
-			/* TODO */
-			/*10. Royal Flush: 10, Jack, Queen, King, Ace of the
-			 * same suit, e.g.  10C,JC,QC,KC,AC*/
-		} else if( straight_flush ) {
-			/* TODO */
-			/*9.  Straight Flush: five cards of the same suit, in
-			 * sequence, e.g. 5D, 6D, 7D, 8D, 9D.*/
-		} else if( four_of_a_kind ) {
-			/* TODO */
-			/*8.  Four of a Kind: four cards of the same card
-			 * value*/
-		} else if( full_house ) {
-			/* TODO */
-			/*7.  Full House: three of a kind and a pair*/
-		} else if( flush ) {
-			/* TODO */
-			/*6.  Flush: five cards of the same suit, but not in
-			 * sequence, e.g.  5H,8H,10H,QH,AH*/
-		} else if( straight ) {
-			/* TODO */
-			/*5.  Straight: a sequence of cards, not of the same
-			 * suit, e.g.  5H,6C,7S,8D,9S*/
-		} else if( three_of_a_kind ) {
-			/* TODO */
-			/*4.  Three of a Kind: exactly three cards with the
-			 * same card value*/
-		} else if( two_pair ) {
-			/* TODO */
-			/*3.  Two Pair: two different pairs of cards: e.g. two
-			 * fives and two tens*/
-		} else if( pair ) {
-			/* TODO */
-			/*2.  Pair: exactly 2 cards with the same card value,
-			 * e.g., a five of hearts and a five of clubs.*/
-		} else { /* high card */
-			/* TODO */
-			/*1.  High Card: if there are no pairs*/
+		int n_of_a_kind[5] = { 0, 0, 0, 0, 0 };
+		for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
+			n_of_a_kind[ rank_count[rank_count_i] ]++;
 		}
 
-		printf("----\n");
+		int is_sequential = hand_is_sequential( hand, HAND_SZ );
+		int all_same_suit =    hand[0].suit == hand[1].suit
+		                    && hand[0].suit == hand[2].suit
+		                    && hand[0].suit == hand[3].suit
+		                    && hand[0].suit == hand[4].suit;
+
+		int four_of_a_kind = n_of_a_kind[ 4 ];
+		int three_of_a_kind = n_of_a_kind[ 3 ];
+		int two_pair = n_of_a_kind[ 2 ] == 2;
+		int pair = n_of_a_kind[ 2 ] == 1;
+		int full_house = three_of_a_kind && pair;
+		int straight = is_sequential && !all_same_suit;
+		int flush = !is_sequential && all_same_suit;
+		int straight_flush = is_sequential && all_same_suit;
+		int royal_flush = straight_flush && hand[0].rank == card_10;
+
+		printf("|%20s | ", buffer); /* print cards in hand */
+		int printed_width = 0;
+		if( royal_flush ) {
+			/*10. Royal Flush: 10, Jack, Queen, King, Ace of the
+			 * same suit, e.g.  10C,JC,QC,KC,AC*/
+			printed_width = printf("Royal flush (suit = %c)", hand[0].suit);
+		} else if( straight_flush ) {
+			/*9.  Straight Flush: five cards of the same suit, in
+			 * sequence, e.g. 5D, 6D, 7D, 8D, 9D.*/
+			printed_width = printf("Straight flush (suit = %c)", hand[0].suit);
+		} else if( four_of_a_kind ) {
+			/*8.  Four of a Kind: four cards of the same card
+			 * value*/
+			printed_width = printf("Four of a kind");
+		} else if( full_house ) {
+			/*7.  Full House: three of a kind and a pair*/
+			printed_width = printf("Full house");
+		} else if( flush ) {
+			/*6.  Flush: five cards of the same suit, but not in
+			 * sequence, e.g.  5H,8H,10H,QH,AH*/
+			printed_width = printf("Flush");
+		} else if( straight ) {
+			/*5.  Straight: a sequence of cards, not of the same
+			 * suit, e.g.  5H,6C,7S,8D,9S*/
+			printed_width = printf("Straight");
+		} else if( three_of_a_kind ) {
+			/*4.  Three of a Kind: exactly three cards with the
+			 * same card value*/
+			printed_width = printf("Three of a kind");
+		} else if( two_pair ) {
+			/*3.  Two Pair: two different pairs of cards: e.g. two
+			 * fives and two tens*/
+			printed_width = printf("Two pair");
+		} else if( pair ) {
+			/*2.  Pair: exactly 2 cards with the same card value,
+			 * e.g., a five of hearts and a five of clubs.*/
+			printed_width = printf("Pair");
+		} else { /* high card */
+			/*1.  High Card: if there are no pairs*/
+			printed_width = printf("High card: %s%c", rank_t_string[ hand[4].rank ], hand[4].suit );
+		}
+		printf("%*s\n", 25 - printed_width, "|");
 	}
 
 	if(buffer)
