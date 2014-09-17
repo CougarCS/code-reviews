@@ -26,7 +26,7 @@ namespace PokerTests
         public void TestSortByRank()
         {
             var expected = new List<PokerCard>();
-            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
+            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.HEARTS));
             expected.Add(new PokerCard(CardRanks.Rank_3, CardSuits.DIAMONDS));
             expected.Add(new PokerCard(CardRanks.Rank_6, CardSuits.DIAMONDS));
             expected.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
@@ -50,31 +50,57 @@ namespace PokerTests
         [Test]
         public void TestHandIsFlush()
         {
-            Assert.IsTrue(Poker.IsFlush(TestHandGenerator.GetHand_Flush()));
+            var hand = TestHandGenerator.GetHand_Flush();
+            Assert.IsTrue(Poker.IsFlush(hand));
         }
 
         [Test]
         public void TestHandIsNotFlush()
         {
-            Assert.IsFalse(Poker.IsFlush(TestHandGenerator.GetHand_UnsortedSuit()));
+            var hand = TestHandGenerator.GetHand_UnsortedSuit();
+            Assert.IsFalse(Poker.IsFlush(hand));
         }
 
         [Test]
         public void TestHandIsStraight()
         {
-            Assert.IsTrue(Poker.IsStraight(TestHandGenerator.GetHand_Straight()));
+            var hand = TestHandGenerator.GetHand_Straight();
+            Assert.IsTrue(Poker.IsStraight(hand));
         }
 
         [Test]
         public void TestHandIsNotStraight()
         {
-            Assert.IsFalse(Poker.IsStraight(TestHandGenerator.GetHand_UnsortedRank()));
+            var hand = TestHandGenerator.GetHand_UnsortedRank();
+            Assert.IsFalse(Poker.IsStraight(hand));
         }
 
         [Test]
         public void TestHandIsStraightWithAceLow()
         {
-            Assert.IsTrue(Poker.IsStraight(TestHandGenerator.GetHand_StraightAceLow()));
+            var hand = TestHandGenerator.GetHand_StraightAceLow();
+            Assert.IsTrue(Poker.IsStraight(hand));
+        }
+
+        [Test]
+        public void TestHandIsStraightFlush()
+        {
+            var hand = TestHandGenerator.GetHand_StraightFlush();
+            Assert.IsTrue(Poker.IsStraightFlush(hand));
+        }
+
+        [Test]
+        public void TestRoyalFlushIsNotStraightFlush()
+        {
+            var hand = TestHandGenerator.GetHand_RoyalFlush();
+            Assert.IsFalse(Poker.IsStraightFlush(hand));
+        }
+
+        [Test]
+        public void TestHandIsRoyalFlush()
+        {
+            var hand = TestHandGenerator.GetHand_RoyalFlush();
+            Assert.IsTrue(Poker.IsRoyalFlush(hand));
         }
     }
 }
