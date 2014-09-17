@@ -12,7 +12,7 @@ typedef enum {
 #define RANK_MAX (card_A)
 
 static const char* rank_t_string[] = {
-	"",
+	"", "",
 	"2",
 	"3", "4", "5", "6",
 	"7", "8", "9", "10",
