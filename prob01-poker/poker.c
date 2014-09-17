@@ -68,8 +68,7 @@ int main(int argc, char** argv) {
 			n_of_a_kind[ rank_count[rank_count_i] ]++;
 			if( rank_count[rank_count_i] ==  3 ) {
 				three_of_a_kind_rank = rank_count_i;
-			}
-			if( rank_count[rank_count_i] ==  2 ) {
+			} else if( rank_count[rank_count_i] ==  2 ) {
 				if( two_of_a_kind_rank_0 == -1 )
 					two_of_a_kind_rank_0 = rank_count_i;
 				else
