@@ -94,18 +94,26 @@ int main(int argc, char** argv) {
 		} else if( four_of_a_kind ) {
 			/*8.  Four of a Kind: four cards of the same card
 			 * value*/
-			printed_width = printf("Four of a kind");
+			printed_width = printf("Four of a kind (rank = %s)",
+					  hand[0].rank == hand[1].rank
+					? rank_t_string[hand[0].rank] /* ranks 0..3 are the same */
+					: rank_t_string[hand[1].rank] /* ranks 1..4 are the same */
+					);
 		} else if( full_house ) {
 			/*7.  Full House: three of a kind and a pair*/
-			printed_width = printf("Full house");
+			int three_kind_first = hand[1].rank == hand[2].rank; /* 3 (3) (3) 2 2 */
+			printed_width = printf("Full house (ranks: 3 of %s and 2 of %s)",
+						 three_kind_first ? rank_t_string[ hand[0].rank ] : rank_t_string[ hand[3].rank ],
+						!three_kind_first ? rank_t_string[ hand[0].rank ] : rank_t_string[ hand[3].rank ]
+					);
 		} else if( flush ) {
 			/*6.  Flush: five cards of the same suit, but not in
 			 * sequence, e.g.  5H,8H,10H,QH,AH*/
-			printed_width = printf("Flush");
+			printed_width = printf("Flush (suit = %c)", hand[0].suit);
 		} else if( straight ) {
 			/*5.  Straight: a sequence of cards, not of the same
 			 * suit, e.g.  5H,6C,7S,8D,9S*/
-			printed_width = printf("Straight");
+			printed_width = printf("Straight (from %s to %s)", rank_t_string[hand[0].rank], rank_t_string[hand[4].rank]);
 		} else if( three_of_a_kind ) {
 			/*4.  Three of a Kind: exactly three cards with the
 			 * same card value*/
