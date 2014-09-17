@@ -32,7 +32,7 @@ namespace PokerTests
             expected.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
             expected.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
 
-            CollectionAssert.AreEqual(expected, Poker.SortByRank(HandGenerator.GetHand_UnsortedRankFlush()));
+            CollectionAssert.AreEqual(expected, Poker.SortByRank(TestHandGenerator.GetHand_UnsortedRank()));
         }
 
         [Test]
@@ -44,13 +44,31 @@ namespace PokerTests
             expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.CLOVER));
             expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.SPADES));
 
-            CollectionAssert.AreEqual(expected, Poker.SortBySuit(HandGenerator.GetHand_UnsortedSuit()));
+            CollectionAssert.AreEqual(expected, Poker.SortBySuit(TestHandGenerator.GetHand_UnsortedSuit()));
         }
 
         [Test]
         public void TestHandIsFlush()
         {
-            Assert.IsTrue(Poker.IsFlush(HandGenerator.GetHand_UnsortedRankFlush()));
+            Assert.IsTrue(Poker.IsFlush(TestHandGenerator.GetHand_Flush()));
+        }
+
+        [Test]
+        public void TestHandIsNotFlush()
+        {
+            Assert.IsFalse(Poker.IsFlush(TestHandGenerator.GetHand_UnsortedSuit()));
+        }
+
+        [Test]
+        public void TestHandIsStraight()
+        {
+            Assert.IsTrue(Poker.IsStraight(TestHandGenerator.GetHand_Straight()));
+        }
+
+        [Test]
+        public void TestHandIsStraightWithAceLow()
+        {
+            Assert.IsTrue(Poker.IsStraight(TestHandGenerator.GetHand_StraightAceLow()));
         }
     }
 }
