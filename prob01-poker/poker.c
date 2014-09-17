@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
 		int three_of_a_kind_rank = -1;
 		int two_of_a_kind_rank_0 = -1;
 		int two_of_a_kind_rank_1 = -1;
-		for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
+		for( rank_count_i = RANK_MIN; rank_count_i <= RANK_MAX; rank_count_i++ ) {
 			n_of_a_kind[ rank_count[rank_count_i] ]++;
 			if( rank_count[rank_count_i] ==  3 ) {
 				three_of_a_kind_rank = rank_count_i;
@@ -178,7 +178,7 @@ void dump_hand( card_t* hand, size_t nmemb ) {
 
 void dump_rank_count( int* rank_count ) {
 	int rank_count_i;
-	for( rank_count_i = RANK_MIN; rank_count_i < RANK_MAX; rank_count_i++ ) {
+	for( rank_count_i = RANK_MIN; rank_count_i <= RANK_MAX; rank_count_i++ ) {
 		printf("rank_count[%2d] = %d\n", rank_count_i, rank_count[rank_count_i]);
 	}
 }
