@@ -76,5 +76,17 @@ namespace PokerLib
                    hand.ElementAt(3).Rank == CardRanks.Rank_5 &&
                    hand.ElementAt(4).Rank == CardRanks.Rank_A;
         }
+
+        public static bool IsStraightFlush(List<PokerCard> hand)
+        {
+            hand = SortByRank(hand);
+            return IsStraight(hand) && IsFlush(hand) && hand.ElementAt(hand.Count - 1).Rank != CardRanks.Rank_A;
+        }
+
+        public static bool IsRoyalFlush(List<PokerCard> hand)
+        {
+            hand = SortByRank(hand);
+            return IsStraight(hand) && IsFlush(hand) && hand.ElementAt(hand.Count - 1).Rank == CardRanks.Rank_A;
+        }
     }
 }
