@@ -127,7 +127,7 @@ sub get_current_branch {
 }
 
 sub get_list_of_problems {
-	my @prob_lines = git(qw(show master:prob.txt));
+	my @prob_lines = git(qw(show upstream/master:prob.txt));
 	my @list;
 	for my $line (@prob_lines) {
 		my @split_line = split ':', $line;
@@ -186,7 +186,7 @@ sub update_review_script {
 
 	# NOTE this is safe because there is no shell interpolation
 	# dump the review.pl from master into current review.pl
-	system("git show master:review.pl > review.pl");
+	system("git show upstream/master:review.pl > review.pl");
 
 	if( grep { /review\.pl/ } git(qw(status)) ) {
 		diag_out('Updating review.pl');
