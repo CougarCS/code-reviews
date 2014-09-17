@@ -83,10 +83,10 @@ int main(int argc, char** argv) {
 		                    && hand[0].suit == hand[3].suit
 		                    && hand[0].suit == hand[4].suit;
 
-		int four_of_a_kind = n_of_a_kind[ 4 ];
-		int three_of_a_kind = n_of_a_kind[ 3 ];
-		int two_pair = n_of_a_kind[ 2 ] == 2;
-		int pair = n_of_a_kind[ 2 ] == 1;
+		int four_of_a_kind  = n_of_a_kind[ 4 ] == 1;
+		int three_of_a_kind = n_of_a_kind[ 3 ] == 1;
+		int two_pair        = n_of_a_kind[ 2 ] == 2;
+		int pair            = n_of_a_kind[ 2 ] == 1;
 		int full_house = three_of_a_kind && pair;
 		int straight = is_sequential && !all_same_suit;
 		int flush = !is_sequential && all_same_suit;
