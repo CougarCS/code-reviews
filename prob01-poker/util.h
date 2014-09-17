@@ -11,6 +11,13 @@ typedef enum {
 #define RANK_MIN (card_2)
 #define RANK_MAX (card_A)
 
+static const char* rank_t_string[] = {
+	"",
+	"2",
+	"3", "4", "5", "6",
+	"7", "8", "9", "10",
+	"J", "Q", "K", "A" };
+
 typedef struct card {
 	rank_t rank;
 	char suit;
