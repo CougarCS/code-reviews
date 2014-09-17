@@ -113,11 +113,9 @@ int main(int argc, char** argv) {
 					);
 		} else if( full_house ) {
 			/*7.  Full House: three of a kind and a pair*/
-			int three_kind_first = hand[1].rank == hand[2].rank; /* 3 (3) (3) 2 2 */
 			printed_width = printf("Full house (ranks: 3 of %s and 2 of %s)",
-						 three_kind_first ? rank_t_string[ hand[0].rank ] : rank_t_string[ hand[3].rank ],
-						!three_kind_first ? rank_t_string[ hand[0].rank ] : rank_t_string[ hand[3].rank ]
-					);
+						rank_t_string[ three_of_a_kind_rank ],
+						rank_t_string[ two_of_a_kind_rank_0 ]);
 		} else if( flush ) {
 			/*6.  Flush: five cards of the same suit, but not in
 			 * sequence, e.g.  5H,8H,10H,QH,AH*/
@@ -125,25 +123,30 @@ int main(int argc, char** argv) {
 		} else if( straight ) {
 			/*5.  Straight: a sequence of cards, not of the same
 			 * suit, e.g.  5H,6C,7S,8D,9S*/
-			printed_width = printf("Straight (from %s to %s)", rank_t_string[hand[0].rank], rank_t_string[hand[4].rank]);
+			printed_width = printf("Straight (rank from %s to %s)",
+					rank_t_string[hand[0].rank],
+					rank_t_string[hand[4].rank]);
 		} else if( three_of_a_kind ) {
 			/*4.  Three of a Kind: exactly three cards with the
 			 * same card value*/
-			int three_kind_first = hand[1].rank == hand[2].rank; /* 3 (3) (3) * * */
 			printed_width = printf("Three of a kind (rank = %s)",
-					three_kind_first ? rank_t_string[ hand[0].rank ] : rank_t_string[ hand[3].rank ]
-					);
+					rank_t_string[three_of_a_kind_rank]);
 		} else if( two_pair ) {
 			/*3.  Two Pair: two different pairs of cards: e.g. two
 			 * fives and two tens*/
-			printed_width = printf("Two pair");
+			printed_width = printf("Two pair (ranks: %s & %s)",
+					rank_t_string[two_of_a_kind_rank_0],
+					rank_t_string[two_of_a_kind_rank_1]);
 		} else if( pair ) {
 			/*2.  Pair: exactly 2 cards with the same card value,
 			 * e.g., a five of hearts and a five of clubs.*/
-			printed_width = printf("Pair");
+			printed_width = printf("Pair (rank = %s)",
+					rank_t_string[two_of_a_kind_rank_0]);
 		} else { /* high card */
 			/*1.  High Card: if there are no pairs*/
-			printed_width = printf("High card: %s%c", rank_t_string[ hand[4].rank ], hand[4].suit );
+			printed_width = printf("High card: %s%c",
+					rank_t_string[ hand[4].rank ],
+					hand[4].suit );
 		}
 		printf("%*s\n", 25 - printed_width, "|");
 	}
