@@ -82,13 +82,7 @@ int main(int argc, char** argv) {
 					two_of_a_kind_rank_1 = rank_count_i;
 			}
 		}
-		/*printf("%d %d %d %d %d",*/
-				/*n_of_a_kind[0],*/
-				/*n_of_a_kind[1],*/
-				/*n_of_a_kind[2],*/
-				/*n_of_a_kind[3],*/
-				/*n_of_a_kind[4]*/
-				/*);*/
+		/*printf("%d %d %d %d %d\n", n_of_a_kind[0], n_of_a_kind[1], n_of_a_kind[2], n_of_a_kind[3], n_of_a_kind[4]); [> DEBUG <]*/
 
 		int is_sequential = hand_is_sequential( hand, HAND_SZ );
 		int is_sequential_four = hand_is_sequential( hand, HAND_SZ - 1 );
