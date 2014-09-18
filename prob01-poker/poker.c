@@ -38,16 +38,15 @@ int main(int argc, char** argv) {
 			*new_line_idx = '\0'; /* Get rid of the newline. This will be useful for later. */
 		}
 		int scanf_matched = 0;
-		scanf_matched = sscanf(buffer,
-			"%[0-9JQKA]%1[HDSC],%[0-9JQKA]%1[HDSC],%[0-9JQKA]%1[HDSC],%[0-9JQKA]%1[HDSC],%[0-9JQKA]%1[HDSC]",
+		scanf_matched = sscanf(buffer, HAND_FORMAT,
 			&card_rank[0], &card_suit[0],
 			&card_rank[1], &card_suit[1],
 			&card_rank[2], &card_suit[2],
 			&card_rank[3], &card_suit[3],
 			&card_rank[4], &card_suit[4]
 			);
-		if( scanf_matched != 10 ) {
-			printf("Could not parse (got %d items, expected 10): %s\n", scanf_matched, buffer);
+		if( scanf_matched != HAND_ITEMS ) {
+			printf("Could not parse (got %d items, expected %d): %s\n", scanf_matched, HAND_ITEMS, buffer);
 			exit(EXIT_FAILURE);
 		}
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
