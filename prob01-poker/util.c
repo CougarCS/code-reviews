@@ -16,7 +16,10 @@
 rank_t string_to_rank(const char* rank_string) {
 	if( isdigit(rank_string[0]) ) {
 		/* card_2, card_3, ..., card_10 */
-		return atoi(rank_string);
+		int rank_num = atoi(rank_string);
+		if( rank_num >= card_2 && rank_num <= card_10 ) {
+			return rank_num;
+		}
 	} else {
 		switch( rank_string[0] ) {
 			case 'J': return card_J;

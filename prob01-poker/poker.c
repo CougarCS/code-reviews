@@ -16,8 +16,8 @@ int main(int argc, char** argv) {
 	size_t len = 0;
 	ssize_t read;
 	int card_i;
-	char card_rank[5][3];
-	char card_suit[5][2];
+	char card_rank[HAND_SZ][3]; /* 3 is 2 + 1 null byte (max length of rank is strlen("10") == 2) */
+	char card_suit[HAND_SZ][2]; /* 2 is 1 + 1 null byte (max length of suit is strlen("H")  == 1) */
 
 	int rank_count[ RANK_MAX + 1 ];
 	int rank_count_i;
@@ -50,7 +50,10 @@ int main(int argc, char** argv) {
 			exit(EXIT_FAILURE);
 		}
 		for( card_i = 0; card_i < HAND_SZ; card_i++ ) {
-			hand[card_i].rank = string_to_rank(card_rank[card_i]);
+			if( -1 == ( hand[card_i].rank = string_to_rank(card_rank[card_i]) ) ) {
+				fprintf(stderr, "Invalid rank: %s\n", card_rank[card_i]);
+				exit(EXIT_FAILURE);
+			}
 			hand[card_i].suit = card_suit[card_i][0];
 		}
 
@@ -64,7 +67,7 @@ int main(int argc, char** argv) {
 		}
 		/*dump_rank_count(rank_count);[> DEBUG <]*/
 
-		int n_of_a_kind[5] = { 0, 0, 0, 0, 0 };
+		int n_of_a_kind[HAND_SZ] = { 0, 0, 0, 0, 0 };
 		int three_of_a_kind_rank = -1;
 		int two_of_a_kind_rank_0 = -1;
 		int two_of_a_kind_rank_1 = -1;
