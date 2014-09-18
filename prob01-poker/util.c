@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "util.h"
 
@@ -21,11 +22,13 @@ rank_t string_to_rank(const char* rank_string) {
 			return rank_num;
 		}
 	} else {
-		switch( rank_string[0] ) {
-			case 'J': return card_J;
-			case 'Q': return card_Q;
-			case 'K': return card_K;
-			case 'A': return card_A;
+		if( strlen(rank_string) == 1 ) {
+			switch( rank_string[0] ) {
+				case 'J': return card_J;
+				case 'Q': return card_Q;
+				case 'K': return card_K;
+				case 'A': return card_A;
+			}
 		}
 	}
 
