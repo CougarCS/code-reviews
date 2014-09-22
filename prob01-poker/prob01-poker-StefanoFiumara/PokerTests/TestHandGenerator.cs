@@ -90,5 +90,27 @@ namespace PokerTests
             hand.Add(new PokerCard(CardRanks.Rank_A, CardSuits.SPADES));
             return hand;
         }
+
+        public static List<PokerCard> GetHand_Pair()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.HEARTS));
+            hand.Add(new PokerCard(CardRanks.Rank_Q, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_K, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_A, CardSuits.SPADES));
+            return hand;
+        }
+
+        internal static List<PokerCard> GetHand_FourOfAKind()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.HEARTS));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.CLOVER));
+            hand.Add(new PokerCard(CardRanks.Rank_A, CardSuits.SPADES));
+            return hand;
+        }
     }
 }
