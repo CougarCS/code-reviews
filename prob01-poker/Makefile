@@ -16,6 +16,9 @@ t/tests: tests.c $(OBJECTS)
 	-@mkdir t 2>&1 > /dev/null
 	$(LINK.c) -o $@ $^
 
+lint:
+	splint -unrecog *.c
+
 clean:
 	-rm -f *.o
 	-rm t/tests poker
