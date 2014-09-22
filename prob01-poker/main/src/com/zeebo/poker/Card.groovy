@@ -1,6 +1,7 @@
 package com.zeebo.poker
 
 import static com.zeebo.poker.Card.Rank.*
+import static com.zeebo.poker.Card.Rank.*
 import static com.zeebo.poker.Card.Suit.*
 
 /**
@@ -23,6 +24,10 @@ class Card {
 		}
 		Rank(v) {
 			value = v
+		}
+
+		static Rank getAt(def shortCode) {
+			shortCode ==~ /\d+/ ? this."_$shortCode" : values().find { it.name().startsWith(shortCode) }
 		}
 
 		String toString() { name().replace('_', '') }
