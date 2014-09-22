@@ -1,0 +1,15 @@
+/target
+workspace.xml
+tasks.xml
+/web-app/WEB-INF/classes
+/plugins
+/web-app/plugins
+/*.zip
+/plugin.xml
+/logs
+/stacktrace.log
+/test/reports
+/out
+/.idea
+.DS_Store
+*.iml
