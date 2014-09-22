@@ -10,6 +10,6 @@ tasks.xml
 /stacktrace.log
 /test/reports
 /out
-/.idea
+.idea
 .DS_Store
 *.iml
