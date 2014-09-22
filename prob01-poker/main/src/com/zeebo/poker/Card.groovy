@@ -14,7 +14,7 @@ class Card implements Comparable<Card> {
 	}
 
 	enum Rank {
-		_2, _3, _4, _5, _6, _7, _8, _9, _10, Jack(11), Queen(12), King(13), Ace(14)
+		_2, _3, _4, _5, _6, _7, _8, _9, _10, _Jack(11), _Queen(12), _King(13), _Ace(14)
 
 		int value
 
@@ -26,10 +26,10 @@ class Card implements Comparable<Card> {
 		}
 
 		static Rank getAt(def shortCode) {
-			shortCode ==~ /\d+/ ? this."_$shortCode" : values().find { it.name().startsWith(shortCode) }
+			values().find { it.name().substring(1).startsWith("$shortCode") }
 		}
 
-		String toString() { name().replace('_', '') }
+		String toString() { name().substring(1) }
 	}
 
 	Suit suit

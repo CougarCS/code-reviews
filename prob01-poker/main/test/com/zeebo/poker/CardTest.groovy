@@ -8,15 +8,15 @@ package com.zeebo.poker
 class CardTest extends GroovyTestCase {
 
 	def twoToTen = (2..10)
-	def faceCards = Card.Rank.values()*.name().findAll { !it.startsWith('_') }
+	def faceCards = Card.Rank.values().findAll { it.value > 10 }*.name()*.substring(1)
 	def suites = Card.Suit.values()*.name()
 
-	void testRankToString() {
+	void  testRankToString() {
 		twoToTen.each {
 			assert Card.Rank."_$it".toString() == "$it"
 		}
 		faceCards.each {
-			assert Card.Rank."$it".toString() == it
+			assert Card.Rank."_$it".toString() == it
 		}
 	}
 
@@ -25,7 +25,7 @@ class CardTest extends GroovyTestCase {
 			assert Card.Rank[it] == Card.Rank."_$it"
 		}
 		faceCards.each {
-			assert Card.Rank[it[0]] == Card.Rank."$it"
+			assert Card.Rank[it[0]] == Card.Rank."_$it"
 		}
 	}
 
