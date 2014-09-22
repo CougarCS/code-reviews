@@ -102,5 +102,12 @@ namespace PokerTests
             var hand = TestHandGenerator.GetHand_RoyalFlush();
             Assert.IsTrue(Poker.IsRoyalFlush(hand));
         }
+
+        [Test]
+        public void TestHandIsFourOfAKind()
+        {
+            var hand = TestHandGenerator.GetHand_FourOfAKind();
+            Assert.IsTrue(Poker.IsFourOfAKind(hand));
+        }
     }
 }
