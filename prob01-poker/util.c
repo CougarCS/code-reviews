@@ -45,6 +45,7 @@ int suit_ordering( char suit ) {
 		case 'D': return 3;
 		case 'S': return 4;
 	}
+	return -1;
 }
 
 /*
@@ -67,8 +68,8 @@ int cmpcardp(const void* c1, const void* c2) {
  *
  * Returns: True if hand is sequential in rank. False otherwise.
  */
-int hand_is_sequential(card_t* hand, size_t nmemb ) {
-	int card_i;
+bool hand_is_sequential(card_t* hand, size_t nmemb ) {
+	size_t card_i;
 	rank_t prev_rank;
 	if( nmemb > 0 ) {
 		prev_rank = hand[0].rank;

@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdbool.h> /* C99 */
 
 #include "poker.h"
+
+#define TABLE_WIDTH 64
 
 void usage(int argc, char** argv);
 void dump_hand( card_t* hand, size_t nmemb );
@@ -22,9 +25,27 @@ int main(int argc, char** argv) {
 	int rank_count[ RANK_MAX + 1 ];
 	int rank_count_i;
 
+	int scanf_matched = 0;
+	char* new_line_idx;
+
+	int n_of_a_kind[HAND_SZ] = { 0, 0, 0, 0, 0 };
+	int three_of_a_kind_rank = -1;
+	int two_of_a_kind_rank_0 = -1;
+	int two_of_a_kind_rank_1 = -1;
+
+	bool is_sequential, is_sequential_four,
+	    all_same_suit,
+	    aces_low_sequential, all_types_of_sequential;
+
+	bool four_of_a_kind, three_of_a_kind, two_pair, pair,
+	    full_house, straight, flush, straight_flush, royal_flush;
+
+	int printed_width = 0;
+
+
 	if( argc != 2 ) {
 		usage(argc, argv);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -33,11 +54,10 @@ int main(int argc, char** argv) {
 
 	while( -1 != (read = getline(&buffer, &len, fh)) ) {
 		/* read the data from the line */
-		char* new_line_idx = index( buffer, '\n');
+		new_line_idx = index( buffer, '\n');
 		if( new_line_idx != NULL ) {
 			*new_line_idx = '\0'; /* Get rid of the newline. This will be useful for later. */
 		}
-		int scanf_matched = 0;
 		scanf_matched = sscanf(buffer, HAND_FORMAT,
 			&card_rank[0], &card_suit[0],
 			&card_rank[1], &card_suit[1],
@@ -67,10 +87,10 @@ int main(int argc, char** argv) {
 		}
 		/*dump_rank_count(rank_count);[> DEBUG <]*/
 
-		int n_of_a_kind[HAND_SZ] = { 0, 0, 0, 0, 0 };
-		int three_of_a_kind_rank = -1;
-		int two_of_a_kind_rank_0 = -1;
-		int two_of_a_kind_rank_1 = -1;
+		memset( n_of_a_kind, 0, sizeof(n_of_a_kind) );
+		three_of_a_kind_rank = -1;
+		two_of_a_kind_rank_0 = -1;
+		two_of_a_kind_rank_1 = -1;
 		for( rank_count_i = RANK_MIN; rank_count_i <= RANK_MAX; rank_count_i++ ) {
 			n_of_a_kind[ rank_count[rank_count_i] ]++;
 			if( rank_count[rank_count_i] ==  3 ) {
@@ -84,81 +104,81 @@ int main(int argc, char** argv) {
 		}
 		/*printf("%d %d %d %d %d\n", n_of_a_kind[0], n_of_a_kind[1], n_of_a_kind[2], n_of_a_kind[3], n_of_a_kind[4]); [> DEBUG <]*/
 
-		int is_sequential = hand_is_sequential( hand, HAND_SZ );
-		int is_sequential_four = hand_is_sequential( hand, HAND_SZ - 1 );
-		int all_same_suit =    hand[0].suit == hand[1].suit
+		is_sequential = hand_is_sequential( hand, HAND_SZ );
+		is_sequential_four = hand_is_sequential( hand, HAND_SZ - 1 );
+		all_same_suit =    hand[0].suit == hand[1].suit
 		                    && hand[0].suit == hand[2].suit
 		                    && hand[0].suit == hand[3].suit
 		                    && hand[0].suit == hand[4].suit;
-		int aces_low_sequential = is_sequential_four && hand[4].rank == card_A;
-		int all_types_of_sequential = is_sequential || aces_low_sequential;
+		aces_low_sequential = is_sequential_four && hand[4].rank == card_A;
+		all_types_of_sequential = is_sequential || aces_low_sequential;
 
-		int four_of_a_kind  = n_of_a_kind[ 4 ] == 1;
-		int three_of_a_kind = n_of_a_kind[ 3 ] == 1;
-		int two_pair        = n_of_a_kind[ 2 ] == 2;
-		int pair            = n_of_a_kind[ 2 ] == 1;
-		int full_house = three_of_a_kind && pair;
-		int straight = all_types_of_sequential && !all_same_suit;
-		int flush = !all_types_of_sequential && all_same_suit;
-		int straight_flush = all_types_of_sequential && all_same_suit;
-		int royal_flush = straight_flush && hand[0].rank == card_10;
+		four_of_a_kind  = n_of_a_kind[ 4 ] == 1;
+		three_of_a_kind = n_of_a_kind[ 3 ] == 1;
+		two_pair        = n_of_a_kind[ 2 ] == 2;
+		pair            = n_of_a_kind[ 2 ] == 1;
+		full_house = three_of_a_kind && pair;
+		straight = all_types_of_sequential && !all_same_suit;
+		flush = !all_types_of_sequential && all_same_suit;
+		straight_flush = all_types_of_sequential && all_same_suit;
+		royal_flush = straight_flush && hand[0].rank == card_10;
 
-		printf("|%20s | ", buffer); /* print cards in hand */
-		int printed_width = 0;
+		printed_width = 0;
+		printed_width += printf("|%20s | ", buffer); /* print cards in hand */
 		if( royal_flush ) {
 			/*10. Royal Flush: 10, Jack, Queen, King, Ace of the
 			 * same suit, e.g.  10C,JC,QC,KC,AC*/
-			printed_width = printf("Royal flush (suit = %c)", hand[0].suit);
+			printed_width += printf("Royal flush (suit = %c)", hand[0].suit);
 		} else if( straight_flush ) {
 			/*9.  Straight Flush: five cards of the same suit, in
 			 * sequence, e.g. 5D, 6D, 7D, 8D, 9D.*/
-			printed_width = printf("Straight flush (suit = %c)", hand[0].suit);
+			printed_width += printf("Straight flush (suit = %c)", hand[0].suit);
 		} else if( four_of_a_kind ) {
 			/*8.  Four of a Kind: four cards of the same card
 			 * value*/
-			printed_width = printf("Four of a kind (rank = %s)",
+			printed_width += printf("Four of a kind (rank = %s)",
 					  hand[0].rank == hand[1].rank
 					? rank_t_string[hand[0].rank] /* ranks 0..3 are the same */
 					: rank_t_string[hand[1].rank] /* ranks 1..4 are the same */
 					);
 		} else if( full_house ) {
 			/*7.  Full House: three of a kind and a pair*/
-			printed_width = printf("Full house (ranks: 3 of %s and 2 of %s)",
+			printed_width += printf("Full house (ranks: 3 of %s and 2 of %s)",
 						rank_t_string[ three_of_a_kind_rank ],
 						rank_t_string[ two_of_a_kind_rank_0 ]);
 		} else if( flush ) {
 			/*6.  Flush: five cards of the same suit, but not in
 			 * sequence, e.g.  5H,8H,10H,QH,AH*/
-			printed_width = printf("Flush (suit = %c)", hand[0].suit);
+			printed_width += printf("Flush (suit = %c)", hand[0].suit);
 		} else if( straight ) {
 			/*5.  Straight: a sequence of cards, not of the same
 			 * suit, e.g.  5H,6C,7S,8D,9S*/
-			printed_width = printf("Straight (rank from %s to %s)",
+			printed_width += printf("Straight (rank from %s to %s)",
 					aces_low_sequential ?                         "A" : rank_t_string[hand[0].rank],
 					aces_low_sequential ? rank_t_string[hand[3].rank] : rank_t_string[hand[4].rank]);
 		} else if( three_of_a_kind ) {
 			/*4.  Three of a Kind: exactly three cards with the
 			 * same card value*/
-			printed_width = printf("Three of a kind (rank = %s)",
+			printed_width += printf("Three of a kind (rank = %s)",
 					rank_t_string[three_of_a_kind_rank]);
 		} else if( two_pair ) {
 			/*3.  Two Pair: two different pairs of cards: e.g. two
 			 * fives and two tens*/
-			printed_width = printf("Two pair (ranks: %s & %s)",
+			printed_width += printf("Two pair (ranks: %s & %s)",
 					rank_t_string[two_of_a_kind_rank_0],
 					rank_t_string[two_of_a_kind_rank_1]);
 		} else if( pair ) {
 			/*2.  Pair: exactly 2 cards with the same card value,
 			 * e.g., a five of hearts and a five of clubs.*/
-			printed_width = printf("Pair (rank = %s)",
+			printed_width += printf("Pair (rank = %s)",
 					rank_t_string[two_of_a_kind_rank_0]);
 		} else { /* high card */
 			/*1.  High Card: if there are no pairs*/
-			printed_width = printf("High card: %s%c",
+			printed_width += printf("High card: %s%c",
 					rank_t_string[ hand[4].rank ],
 					hand[4].suit );
 		}
-		printf("%*s\n", 40 - printed_width, "|");
+		printf("%*s\n", TABLE_WIDTH - printed_width, "|");
 	}
 
 	if(buffer)
@@ -179,7 +199,7 @@ void usage(int argc, char** argv) {
 }
 
 void dump_hand( card_t* hand, size_t nmemb ) {
-	int card_i;
+	size_t card_i;
 	for( card_i = 0; card_i < nmemb; card_i++ ) {
 		fprintf(stderr, "%d-%c\n",
 				hand[card_i].rank,

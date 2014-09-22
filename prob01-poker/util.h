@@ -1,6 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <stdbool.h> /* C99 */
+
 typedef enum {
 	card_2  = 2,
 	card_3, card_4, card_5, card_6,
@@ -25,6 +27,6 @@ typedef struct card {
 
 rank_t string_to_rank(const char* rank_string);
 int cmpcardp(const void* c1, const void* c2);
-int hand_is_sequential(card_t* hand, size_t nmemb );
+bool hand_is_sequential(card_t* hand, size_t nmemb );
 
 #endif /* UTIL_H */
