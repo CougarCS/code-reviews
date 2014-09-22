@@ -1,17 +1,16 @@
 package com.zeebo.poker
-
-import static com.zeebo.poker.Card.Rank.*
-import static com.zeebo.poker.Card.Rank.*
-import static com.zeebo.poker.Card.Suit.*
-
 /**
  * User: Eric
  * Date: 9/22/14
  */
-class Card {
+class Card implements Comparable<Card> {
 
 	enum Suit {
 		Hearts, Clubs, Diamonds, Spades
+
+		static Suit getAt(def shortCode) {
+			values().find { it.name().startsWith(shortCode) }
+		}
 	}
 
 	enum Rank {
@@ -34,7 +33,11 @@ class Card {
 	}
 
 	Suit suit
-	Rank value
+	Rank rank
 
-	String toString() { "$value of ${suit.name()}" }
+	String toString() { "$rank of ${suit.name()}" }
+
+	int compareTo(Card other) {
+		suit <=> other.suit ?: rank <=> other.rank
+	}
 }
