@@ -15,15 +15,21 @@ class PokerGame {
 	}
 
 	def getNextHand() {
-		reader.readLine().split(',').collect {
+		new Hand(cards: reader.readLine().split(',').collect {
 			def matcher = it =~ /([2-9JQKA]|10)([HCDS])/
-			new Card(suit: Card.Suit[matcher[1]], rank: Card.Rank[matcher[0]])
-		}.sort()
+			if (matcher.find()) {
+				new Card(suit: Card.Suit[matcher.group(2)], rank: Card.Rank[matcher.group(1)])
+			}
+		}.sort())
 	}
 
 	public static void main(String[] args) {
 		PokerGame game = new PokerGame()
 
 		game.file = 'testFile'
+
+		println game.nextHand.fourOfAKind
+		println game.nextHand.flush
+		println game.nextHand.flush
 	}
 }
