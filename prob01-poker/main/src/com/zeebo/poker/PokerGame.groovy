@@ -16,9 +16,8 @@ class PokerGame {
 
 	def getNextHand() {
 		new Hand(cards: reader.readLine().split(',').collect {
-			def matcher = it =~ /([2-9JQKA]|10)([HCDS])/
-			if (matcher.find()) {
-				new Card(suit: Card.Suit[matcher.group(2)], rank: Card.Rank[matcher.group(1)])
+			(it =~ /([2-9JQKA]|10)([HCDS])/).with {
+				new Card(suit: Card.Suit[it[0][2]], rank: Card.Rank[it[0][1]])
 			}
 		}.sort())
 	}
@@ -28,10 +27,16 @@ class PokerGame {
 
 		game.file = 'testFile'
 
+		println game.nextHand.royalFlush
+		println game.nextHand.royalFlush
+		println game.nextHand.straightFlush
 		println game.nextHand.fourOfAKind
-		println game.nextHand.straight
-		println game.nextHand.straight
+		println game.nextHand.fullHouse
 		println game.nextHand.flush
 		println game.nextHand.straight
+		println game.nextHand.straight
+		println game.nextHand.threeOfAKind
+		println game.nextHand.twoPair
+		println game.nextHand.pair
 	}
 }
