@@ -40,8 +40,13 @@ class Hand {
 	@Memoized
 	def getStraight() {
 		use(CollectionCategory) {
-			cards*.rank*.value == cards[0].rank.value..cards[4].rank.value ? cards : cards[4].rank == Card.Rank['A'] && cards[0].rank == Card.Rank[2] &&
-				cards*.rank*.value.rotateRight() == [cards[4].rank.value, cards[0].rank.value..cards[3].rank.value].flatten() ? cards.rotateRight() : null
+			cards*.rank*.value.with {
+				it == it[0]..it[4] ?
+					cards :
+				cards[4].rank == Card.Rank['A'] && cards[0].rank == Card.Rank[2] && it.rotateRight() == [it[4], it[0]..it[3]].flatten() ?
+					cards.rotateRight() :
+					null
+			}
 		}
 	}
 
