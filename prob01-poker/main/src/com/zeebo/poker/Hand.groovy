@@ -25,7 +25,7 @@ class Hand {
 
 	def getStraight() {
 		use(CollectionCategory) {
-			cards*.rank*.value == cards[0].rank.value..cards[4].rank.value ? cards : cards[4].rank == Card.Rank['A'] &&
+			cards*.rank*.value == cards[0].rank.value..cards[4].rank.value ? cards : cards[4].rank == Card.Rank['A'] && cards[0].rank == Card.Rank[2] &&
 				cards*.rank*.value.rotateRight() == [cards[4].rank.value, cards[0].rank.value..cards[3].rank.value].flatten() ? cards.rotateRight() : null
 		}
 	}

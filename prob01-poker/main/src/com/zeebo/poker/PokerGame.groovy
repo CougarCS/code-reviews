@@ -32,5 +32,6 @@ class PokerGame {
 		println game.nextHand.straight
 		println game.nextHand.straight
 		println game.nextHand.flush
+		println game.nextHand.straight
 	}
 }
