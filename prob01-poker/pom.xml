@@ -4,7 +4,7 @@
 						http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.zeebo.codeReviews</groupId>
+	<groupId>com.zeebo.code-reviews</groupId>
 	<artifactId>poker</artifactId>
 	<version>0.1</version>
 

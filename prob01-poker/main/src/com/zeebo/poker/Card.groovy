@@ -38,6 +38,6 @@ class Card implements Comparable<Card> {
 	String toString() { "$rank of ${suit.name()}" }
 
 	int compareTo(Card other) {
-		suit <=> other.suit ?: rank <=> other.rank
+		rank <=> other.rank ?: suit <=> other.suit
 	}
 }

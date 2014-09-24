@@ -29,7 +29,8 @@ class PokerGame {
 		game.file = 'testFile'
 
 		println game.nextHand.fourOfAKind
-		println game.nextHand.flush
+		println game.nextHand.straight
+		println game.nextHand.straight
 		println game.nextHand.flush
 	}
 }
