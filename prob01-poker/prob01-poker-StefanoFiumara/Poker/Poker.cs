@@ -102,8 +102,8 @@ namespace PokerLib
         {
             var groups = hand.GroupBy(card => card.Rank);
 
-            return groups.ElementAt(0).Count() == 2 ||
-                   groups.ElementAt(0).Count() == 3;
+            return (groups.ElementAt(0).Count() == 2 || groups.ElementAt(0).Count() == 3) &&
+                    groups.Count() == 2;
         }
 
         public static bool IsThreeOfAKind(List<PokerCard> hand)
