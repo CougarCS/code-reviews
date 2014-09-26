@@ -97,5 +97,45 @@ namespace PokerLib
 
             return hand.ElementAt(0).Rank == hand.ElementAt(3).Rank || hand.ElementAt(1).Rank == hand.ElementAt(4).Rank;
         }
+
+        public static bool IsFullHouse(List<PokerCard> hand)
+        {
+            var groups = hand.GroupBy(card => card.Rank);
+
+            return groups.ElementAt(0).Count() == 2 ||
+                   groups.ElementAt(0).Count() == 3;
+        }
+
+        public static bool IsThreeOfAKind(List<PokerCard> hand)
+        {
+            var groups = hand.GroupBy(card => card.Rank);
+
+
+            return (groups.ElementAt(0).Count() == 1 || groups.ElementAt(0).Count() == 3) &&
+                    groups.Count() == 3;
+        }
+
+        public static bool IsTwoPair(List<PokerCard> hand)
+        {
+            var groups = hand.GroupBy(card => card.Rank);
+
+            return (groups.ElementAt(0).Count() == 1 || groups.ElementAt(0).Count() == 2) &&
+                    groups.Count() == 3;
+        }
+
+        public static bool IsPair(List<PokerCard> hand)
+        {
+            var groups = hand.GroupBy(card => card.Rank);
+
+            return groups.Count() == 4;
+        }
+
+        public static bool IsHighCard(List<PokerCard> hand)
+        {
+            var RankGroups = hand.GroupBy(card => card.Rank);
+            var SuitGroups = hand.GroupBy(card => card.Suit);
+
+            return RankGroups.Count() == 5 && SuitGroups.Count() != 1;
+        }
     }
 }

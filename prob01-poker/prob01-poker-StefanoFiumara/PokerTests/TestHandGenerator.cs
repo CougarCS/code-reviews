@@ -102,7 +102,7 @@ namespace PokerTests
             return hand;
         }
 
-        internal static List<PokerCard> GetHand_FourOfAKind()
+        public static List<PokerCard> GetHand_FourOfAKind()
         {
             var hand = new List<PokerCard>();
             hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
@@ -110,6 +110,39 @@ namespace PokerTests
             hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.DIAMONDS));
             hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.CLOVER));
             hand.Add(new PokerCard(CardRanks.Rank_A, CardSuits.SPADES));
+            return hand;
+        }
+
+        public static List<PokerCard> GetHand_FullHouse()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.HEARTS));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.CLOVER));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.SPADES));
+            return hand;
+        }
+
+        public static List<PokerCard> GetHand_ThreeOfAKind()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.HEARTS));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_8, CardSuits.CLOVER));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.SPADES));
+            return hand;
+        }
+
+        public static List<PokerCard> GetHand_TwoPair()
+        {
+            var hand = new List<PokerCard>();
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.SPADES));
+            hand.Add(new PokerCard(CardRanks.Rank_10, CardSuits.HEARTS));
+            hand.Add(new PokerCard(CardRanks.Rank_8, CardSuits.DIAMONDS));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.CLOVER));
+            hand.Add(new PokerCard(CardRanks.Rank_9, CardSuits.SPADES));
             return hand;
         }
     }

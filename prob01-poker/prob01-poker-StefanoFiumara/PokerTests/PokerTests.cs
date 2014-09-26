@@ -109,5 +109,67 @@ namespace PokerTests
             var hand = TestHandGenerator.GetHand_FourOfAKind();
             Assert.IsTrue(Poker.IsFourOfAKind(hand));
         }
+
+        [Test]
+        public void TestHandIsFullHouse()
+        {
+            var hand = TestHandGenerator.GetHand_FullHouse();
+            Assert.IsTrue(Poker.IsFullHouse(hand));
+        }
+
+        [Test]
+        public void TestHandIsNotFullHouse()
+        {
+            var hand = TestHandGenerator.GetHand_FourOfAKind();
+            Assert.IsFalse(Poker.IsFullHouse(hand));
+        }
+
+        [Test]
+        public void TestHandIsThreeOfAKind()
+        {
+            var hand = TestHandGenerator.GetHand_ThreeOfAKind();
+            Assert.IsTrue(Poker.IsThreeOfAKind(hand));
+        }
+        [Test]
+        public void TestHandIsNotThreeOfAKind()
+        {
+            var hand = TestHandGenerator.GetHand_TwoPair();
+            Assert.IsFalse(Poker.IsThreeOfAKind(hand));
+        }
+
+        [Test]
+        public void TestHandIsTwoPair()
+        {
+            var hand = TestHandGenerator.GetHand_TwoPair();
+            Assert.IsTrue(Poker.IsTwoPair(hand));
+        }
+
+        [Test]
+        public void TestHandIsNotTwoPair()
+        {
+            var hand = TestHandGenerator.GetHand_ThreeOfAKind();
+            Assert.IsFalse(Poker.IsTwoPair(hand));
+        }
+
+        [Test]
+        public void TestHandIsPair()
+        {
+            var hand = TestHandGenerator.GetHand_Pair();
+            Assert.IsTrue(Poker.IsPair(hand));
+        }
+
+        [Test]
+        public void TestHandIsNotPair()
+        {
+            var hand = TestHandGenerator.GetHand_TwoPair();
+            Assert.IsFalse(Poker.IsPair(hand));
+        }
+
+        [Test]
+        public void TestHandIsHighCard()
+        {
+            var hand = TestHandGenerator.GetHand_UnsortedRank();
+            Assert.IsTrue(Poker.IsHighCard(hand));
+        }
     }
 }
