@@ -89,8 +89,6 @@ namespace PokerLib
             return IsStraight(hand) && IsFlush(hand) && hand.ElementAt(hand.Count - 1).Rank == CardRanks.Rank_A;
         }
 
-
-
         public static bool IsFourOfAKind(List<PokerCard> hand)
         {
             hand = SortByRank(hand);
