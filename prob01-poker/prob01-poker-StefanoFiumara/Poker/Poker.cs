@@ -111,9 +111,7 @@ namespace PokerLib
 
         public static bool IsPair(List<PokerCard> hand)
         {
-            var groups = hand.GroupBy(card => card.Rank);
-
-            return groups.Count() == 4;
+            return hand.GroupBy(card => card.Rank).Count() == 4;
         }
 
         public static bool IsHighCard(List<PokerCard> hand)
