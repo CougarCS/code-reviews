@@ -43,26 +43,14 @@ namespace PokerLib
             }
         }
 
-        public static List<PokerCard> SortByRank(List<PokerCard> hand)
-        {
-            return hand.OrderBy(x => x.Rank).ToList();
-        }
-
-        public static List<PokerCard> SortBySuit(List<PokerCard> hand)
-        {
-            return hand.OrderBy(x => x.Suit).ToList();
-        }
-
         public static bool IsFlush(List<PokerCard> hand)
         {
-            hand = SortBySuit(hand);
-
-            return hand.ElementAt(0).Suit == hand.ElementAt(hand.Count - 1).Suit;
+            return hand.GroupBy(card => card.Suit).Count() == 1;
         }
 
         public static bool IsStraight(List<PokerCard> hand)
         {
-            hand = SortByRank(hand);
+            hand = hand.OrderBy(x => x.Rank).ToList();
 
             return hand.ElementAt(hand.Count - 1).Rank - hand.ElementAt(0).Rank == 4 || IsStraightAceLow(hand);
         }
@@ -79,19 +67,19 @@ namespace PokerLib
 
         public static bool IsStraightFlush(List<PokerCard> hand)
         {
-            hand = SortByRank(hand);
+            hand = hand.OrderBy(x => x.Rank).ToList();
             return IsStraight(hand) && IsFlush(hand) && hand.ElementAt(hand.Count - 1).Rank != CardRanks.Rank_A;
         }
 
         public static bool IsRoyalFlush(List<PokerCard> hand)
         {
-            hand = SortByRank(hand);
+            hand = hand.OrderBy(x => x.Rank).ToList();
             return IsStraight(hand) && IsFlush(hand) && hand.ElementAt(hand.Count - 1).Rank == CardRanks.Rank_A;
         }
 
         public static bool IsFourOfAKind(List<PokerCard> hand)
         {
-            hand = SortByRank(hand);
+            hand = hand.OrderBy(x => x.Rank).ToList();
 
             return hand.ElementAt(0).Rank == hand.ElementAt(3).Rank || hand.ElementAt(1).Rank == hand.ElementAt(4).Rank;
         }
