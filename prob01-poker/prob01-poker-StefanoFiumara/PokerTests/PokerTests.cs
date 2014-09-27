@@ -23,31 +23,6 @@ namespace PokerTests
         }
 
         [Test]
-        public void TestSortByRank()
-        {
-            var expected = new List<PokerCard>();
-            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.HEARTS));
-            expected.Add(new PokerCard(CardRanks.Rank_3, CardSuits.DIAMONDS));
-            expected.Add(new PokerCard(CardRanks.Rank_6, CardSuits.DIAMONDS));
-            expected.Add(new PokerCard(CardRanks.Rank_7, CardSuits.DIAMONDS));
-            expected.Add(new PokerCard(CardRanks.Rank_9, CardSuits.DIAMONDS));
-
-            CollectionAssert.AreEqual(expected, Poker.SortByRank(TestHandGenerator.GetHand_UnsortedRank()));
-        }
-
-        [Test]
-        public void TestSortBySuit()
-        {
-            var expected = new List<PokerCard>();
-            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.HEARTS));
-            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.DIAMONDS));
-            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.CLOVER));
-            expected.Add(new PokerCard(CardRanks.Rank_2, CardSuits.SPADES));
-
-            CollectionAssert.AreEqual(expected, Poker.SortBySuit(TestHandGenerator.GetHand_UnsortedSuit()));
-        }
-
-        [Test]
         public void TestHandIsFlush()
         {
             var hand = TestHandGenerator.GetHand_Flush();
