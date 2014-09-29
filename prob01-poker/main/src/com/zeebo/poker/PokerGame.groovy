@@ -27,16 +27,16 @@ class PokerGame {
 
 		game.file = 'testFile'
 
-		println game.nextHand.royalFlush
-		println game.nextHand.royalFlush
-		println game.nextHand.straightFlush
-		println game.nextHand.fourOfAKind
-		println game.nextHand.fullHouse
-		println game.nextHand.flush
-		println game.nextHand.straight
-		println game.nextHand.straight
-		println game.nextHand.threeOfAKind
-		println game.nextHand.twoPair
-		println game.nextHand.pair
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
+		println game.nextHand.bestHand
 	}
 }

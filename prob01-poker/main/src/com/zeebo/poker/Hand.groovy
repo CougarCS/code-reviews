@@ -9,12 +9,21 @@ import groovy.transform.Memoized
  */
 class Hand {
 
+	static def handsByBest = ['royalFlush', 'straightFlush', 'fourOfAKind', 'fullHouse', 'flush', 'straight', 'threeOfAKind', 'twoPair', 'pair', 'highCard']
+
 	@Delegate
 	List cards
 
 	@Memoized
+	def getBestHand() {
+		handsByBest.find {
+			this."$it"
+		}
+	}
+
+	@Memoized
 	def getRoyalFlush() {
-		straightFlush?.straight[4]?.rank == Card.Rank['A'] ? [royalFlush: straight] : null
+		straightFlush?.straight?.getAt(4)?.rank == Card.Rank['A'] ? [royalFlush: straight] : null
 	}
 
 	@Memoized
@@ -65,5 +74,10 @@ class Hand {
 	@Memoized
 	def getPair() {
 		cards.groupBy { it.rank }.find { k, v -> v.size() == 2 }
+	}
+
+	@Memoized
+	def getHighCard() {
+		cards[4]
 	}
 }
