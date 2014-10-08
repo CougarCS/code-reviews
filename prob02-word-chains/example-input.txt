@@ -1,0 +1,5 @@
+cat:dog
+lead:gold
+ruby:code
+cold:warm
+ape:man
