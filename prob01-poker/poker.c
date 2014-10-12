@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 		                    && hand[0].suit == hand[2].suit
 		                    && hand[0].suit == hand[3].suit
 		                    && hand[0].suit == hand[4].suit;
-		aces_low_sequential = is_sequential_four && hand[4].rank == card_A;
+		aces_low_sequential = is_sequential_four && hand[0].rank == card_2 && hand[4].rank == card_A;
 		all_types_of_sequential = is_sequential || aces_low_sequential;
 
 		four_of_a_kind  = n_of_a_kind[ 4 ] == 1;
