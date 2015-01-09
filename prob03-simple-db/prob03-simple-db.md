@@ -119,8 +119,7 @@ COMMIT
 END
 ```
 
-
-Performance Considerations
+## Performance Considerations
 
 The most common operations are `GET`, `SET`, `UNSET`, and `NUMEQUALTO`. All of
 these commands should have an expected worst-case runtime of O(log N) or
