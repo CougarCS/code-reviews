@@ -1,0 +1,9 @@
+lib/
+packages/
+Properties/
+obj/
+bin/
+*.sln
+*.suo
+*.csproj
+*.config
