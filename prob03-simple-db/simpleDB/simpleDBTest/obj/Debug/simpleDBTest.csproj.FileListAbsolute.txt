@@ -1,7 +1,0 @@
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\bin\Debug\simpleDBTest.dll
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\bin\Debug\simpleDBTest.pdb
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\bin\Debug\nunit.framework.dll
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\bin\Debug\nunit.framework.xml
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\obj\Debug\simpleDBTest.csprojResolveAssemblyReference.cache
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\obj\Debug\simpleDBTest.dll
-D:\GitHub\code-reviews\prob03-simple-db\simpleDB\simpleDBTest\obj\Debug\simpleDBTest.pdb
