@@ -7,9 +7,14 @@ namespace simpleDB
 {
     public class Unset : IDataCommand
     {
-        public int? Operation(List<object> args)
+        public string Message { get; private set; }
+        public Unset()
         {
-            Memory.Data.Remove((string)args[0]);
+            Message = Messages.DEFAULT_MESSAGE;
+        }
+        public int? Operation(List<string> args)
+        {
+            Memory.Data.Remove(args[0]);
             return null;
         }
     }

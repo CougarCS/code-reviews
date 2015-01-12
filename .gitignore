@@ -3,7 +3,9 @@ packages/
 Properties/
 obj/
 bin/
+TestResults/
 *.sln
 *.suo
 *.csproj
 *.config
+

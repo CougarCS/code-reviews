@@ -7,9 +7,24 @@ namespace simpleDB
 {
     public class NumEqualTo : IDataCommand
     {
-        public int? Operation(List<object> args)
+        public string Message { get; private set; }
+        public NumEqualTo()
         {
-            int checkVal = (int)args[0];
+            Message = Messages.DEFAULT_MESSAGE;
+        }
+        public int? Operation(List<string> args)
+        {
+            Message = Messages.DEFAULT_MESSAGE;
+            int checkVal = 0;
+            try
+            {
+                checkVal = int.Parse(args[0]);
+            }
+            catch
+            {
+                Message = Messages.INVALID_ARGUMENT;
+                return null;
+            }
             List<int> matches = Memory.Data.Values.ToList().FindAll(x => x == checkVal);
             
             return matches.Count;

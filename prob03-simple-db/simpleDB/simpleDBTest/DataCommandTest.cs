@@ -30,73 +30,97 @@ namespace simpleDBTest
         [Test]
         public void TestSetExisting()
         {
-            List<object> arg1 = new List<object>(){
+            List<string> arg1 = new List<string>(){
                 "z",
-                23
+                "23"
             };
-            List<object> arg2 = new List<object>(){
+            List<string> arg2 = new List<string>(){
                 "z",
-                9
+                "9"
             };
 
             set.Operation(arg1);
             set.Operation(arg2);
             int? actual = get.Operation(arg1);
 
-            Assert.AreEqual(arg2[1], actual);
+            Assert.AreEqual(9, actual);
         }
 
         [Test]
         public void TestSetAndGet()
         {
-            List<object> args = new List<object>(){
+            List<string> args = new List<string>(){
                 "a",
-                10
+                "10"
             };
 
             set.Operation(args);
             int? actual = get.Operation(args);
 
-            Assert.AreEqual(args[1], actual.Value);
+            Assert.AreEqual(10, actual.Value);
         }
         
         [Test]
         public void TestGetEmpty()
         {
-            int? actual = get.Operation(new List<object>() { "taco" });
+            int? actual = get.Operation(new List<string>() { "taco" });
 
             Assert.IsFalse(actual.HasValue);
+            Assert.AreEqual(Messages.NULL, get.Message);
+        }
+
+        [Test]
+        public void TestSetBadArguments()
+        {
+            List<string> args = new List<string>(){
+                "b",
+                "s"
+            };
+
+            int? actual = set.Operation(args);
+
+            Assert.IsFalse(actual.HasValue);
+            Assert.AreEqual(Messages.INVALID_ARGUMENT, set.Message);
         }
         [Test]
         public void TestNumEqualTo()
         {
-            List<object> args1 = new List<object>(){
+            List<string> args1 = new List<string>(){
                 "b",
-                7
+                "7"
             };
-            List<object> args2 = new List<object>(){
+            List<string> args2 = new List<string>(){
                 "c",
-                7
+                "7"
             };
-            List<object> args3 = new List<object>(){
+            List<string> args3 = new List<string>(){
                 "a",
-                20
+                "20"
             };
 
             set.Operation(args1);
             set.Operation(args2);
             set.Operation(args3);
-            int? actual = numEqualTo.Operation(new List<object>() { 7 });
+            int? actual = numEqualTo.Operation(new List<string>() { "7" });
 
             Assert.AreEqual(2, actual);
         }
 
         [Test]
+        public void TestNumEqualToBadArguments()
+        {
+            int? actual = numEqualTo.Operation(null);
+
+            Assert.IsFalse(actual.HasValue);
+            Assert.AreEqual(Messages.INVALID_ARGUMENT, numEqualTo.Message);
+        }
+
+        [Test]
         public void TestUnset()
         {
-            List<object> arg = new List<object>(){
+            List<string> arg = new List<string>(){
                 "utopic",
-                93
+                "93"
             };
 
             set.Operation(arg);

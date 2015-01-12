@@ -7,6 +7,7 @@ namespace simpleDB
 {
     interface IDataCommand
     {
-        int? Operation(List<object> args);
+        string Message { get; }
+        int? Operation(List<string> args);
     }
 }

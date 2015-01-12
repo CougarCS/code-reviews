@@ -9,9 +9,14 @@ namespace simpleDB
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Tacos Live!");
-            var input = Console.ReadLine();
-            Console.WriteLine("Your input is: " + input);
+            CommandController controller = new CommandController();
+            
+            Console.WriteLine("Program is live. Enter commands:");
+            while (true)
+            {
+                var input = Console.ReadLine();
+                Console.WriteLine(controller.ExecuteCommandString(input));
+            }
         }
     }
 }
