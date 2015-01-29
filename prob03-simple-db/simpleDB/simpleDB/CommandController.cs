@@ -30,14 +30,11 @@ namespace simpleDB
 
             try
             {
-                if (_dataCommands.ContainsKey(formattedCommand))
-                    output = _dataCommands[formattedCommand].Operation(args);
-                else
-                    return "UNKNOWN COMMAND";
+                output = _dataCommands[formattedCommand].Operation(args);
             }
-            catch (Exception e)
+            catch
             {
-                return e.Message;
+                return "UNKNOWN COMMAND";
             }
 
             if (output.HasValue)

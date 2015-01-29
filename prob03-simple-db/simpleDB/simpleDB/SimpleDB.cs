@@ -11,7 +11,6 @@ namespace simpleDB
         {
             CommandController controller = new CommandController();
             
-            Console.WriteLine("Program is live. Enter commands:");
             while (true)
             {
                 var input = Console.ReadLine();

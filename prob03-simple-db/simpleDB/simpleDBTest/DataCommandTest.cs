@@ -15,6 +15,9 @@ namespace simpleDBTest
         Unset unSet = new Unset();
         ResetAll reset = new ResetAll();
 
+        //not possible to test end
+        //End end = new End();
+
         [SetUp]
         public void SetUp()
         {
