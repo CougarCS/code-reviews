@@ -10,7 +10,7 @@ appropriate responses to standard output (stdout).
 
 Your database should accept the following commands:
 
- - `SET name` value – Set the variable name to the value value. Neither variable
+ - `SET name value` – Set the variable name to the value value. Neither variable
    names nor values will contain spaces.
  - `GET name` – Print out the value of the variable name, or NULL if that
    variable is not set.
