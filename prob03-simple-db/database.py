@@ -7,30 +7,35 @@ NULL = 'NULL'
 NO_TRANSACTION = 'NO_TRANSACTION'
 open_trans = -1
 
-def _begin(state, *args):
+def _begin(state, counts, *args):
     global open_trans
     open_trans += 1
     new_state = copy(state)
+    new_counts = copy(counts)
     while(True):
         a, var, val = get_next_line()
         if(a == 'ROLLBACK'):
             if(open_trans > 0):
                 open_trans -= 1
-                return state
+                return state, counts, False
             else:
                 print(NO_TRANSACTION)
         elif(a == 'COMMIT'):
             if(open_trans > 0):
                 open_trans -= 1
-                return new_state
+                return new_state, new_counts, True
             else:
                 print(NO_TRANSACTION)
         elif(a == 'END'):
             exit()
         else:
-            new_state = actions[a](new_state, var, val)
+            new_state, new_counts, commit = actions[a](new_state, new_counts, var, val)
+            # close out all transactions if commit
+            if(commit and open_trans > 0):
+                open_trans -= 1
+                return new_state, new_counts, True
 
-    return new_state
+    return new_state, new_counts
 
 # Utility
 def get_next_line():
@@ -39,38 +44,43 @@ def get_next_line():
         seq.append(None)
     return seq
 
-def _get(state, var, _):
+def _get(state, counts, var, _):
     try:
         print(state[var])
     except KeyError:
         print(NULL)
-    return state
+    return state, counts, False
 
-def _set(state, var, val):
+def _set(state, counts, var, val):
+    try:
+        cur_val = state[var]
+        counts[cur_val] -= 1
+    except KeyError:
+        pass
     state[var] = val
     try:
         counts[val] += 1
     except KeyError:
         counts[val] = 1
-    return state
+    return state, counts, False
 
-def _uset(state, var, _):
+def _uset(state, counts, var, _):
     try:
         val = state[var]
         del state[var]
-        counts[var] -= 1
+        counts[val] -= 1
     except KeyError:
         pass
-    return state
+    return state, counts, False
 
-def _numeq(state, val, _):
+def _numeq(state, counts, val, _):
     count = 0
     try:
         count = counts[val]
     except KeyError:
         pass
     print(count)
-    return state
+    return state, counts, False
 
 # Map inputs to python functions
 actions = {
@@ -81,8 +91,4 @@ actions = {
     'BEGIN': _begin,
 }
 
-global_state = {}
-counts = {}
-
-_begin(global_state, None, None)
-exit()
+_begin({}, {}, None, None)
