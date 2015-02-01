@@ -28,10 +28,7 @@ namespace simpleDB
                 return null;
             }
 
-            if (Memory.Data.ContainsKey(name))
-                Memory.Data[name] = value;
-            else
-                Memory.Data.Add(name, value);
+            Memory.Data[name] = value;
 
             return null;
         }

@@ -9,11 +9,11 @@ namespace simpleDB
     {
         //data is exposed to data commands
         //making this public allows more elaborate commands without having to add necissary functions to the Memory class
-        public static Dictionary<string, int> Data { get; set; }
+        public static EventDictionary<string, int> Data { get; set; }
 
         public static void Reset()
         {
-            Data = new Dictionary<string, int>();
+            Data = new EventDictionary<string, int>();
         }
     }
 }

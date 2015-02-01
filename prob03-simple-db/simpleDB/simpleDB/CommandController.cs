@@ -28,14 +28,14 @@ namespace simpleDB
             args.RemoveAt(0);
             int? output;
 
-            try
-            {
+            //try
+            //{
                 output = _dataCommands[formattedCommand].Operation(args);
-            }
-            catch
-            {
-                return "UNKNOWN COMMAND";
-            }
+            //}
+            //catch
+            //{
+            //    return "UNKNOWN COMMAND";
+            //}
 
             if (output.HasValue)
                 return output.Value.ToString();
