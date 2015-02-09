@@ -45,41 +45,26 @@ def get_next_line():
     return seq
 
 def _get(state, counts, var, _):
-    try:
-        print(state[var])
-    except KeyError:
-        print(NULL)
+    print(state.get(var,NULL))
     return state, counts, False
 
 def _set(state, counts, var, val):
-    try:
-        cur_val = state[var]
-        counts[cur_val] -= 1
-    except KeyError:
-        pass
+    cur_val = state.get(var,None)
+    if cur_val is not None:
+        counts[cur_val] = counts.get(cur_val,1) - 1 
     state[var] = val
-    try:
-        counts[val] += 1
-    except KeyError:
-        counts[val] = 1
+    counts[val] = counts.get(val,0)+1
     return state, counts, False
 
 def _uset(state, counts, var, _):
-    try:
-        val = state[var]
+    val = state.get(var,None)
+    if val is not None:
         del state[var]
-        counts[val] -= 1
-    except KeyError:
-        pass
+        counts[val] = counts.get(val,1) - 1
     return state, counts, False
 
 def _numeq(state, counts, val, _):
-    count = 0
-    try:
-        count = counts[val]
-    except KeyError:
-        pass
-    print(count)
+    print(counts.get(val,0))
     return state, counts, False
 
 # Map inputs to python functions
