@@ -1,0 +1,13 @@
+|      2H,3D,KS,JS,JD | Pair (rank = J)                        |
+|      2H,3H,KH,QH,8H | Flush (suit = H)                       |
+|     10C,JC,QC,KC,AC | Royal flush (suit = C)                 |
+|      5D,6D,7C,9S,QS | High card: QS                          |
+|      AH,2H,3H,4H,5C | Straight (rank from A to 5)            |
+|      5H,6C,7S,8D,9S | Straight (rank from 5 to 9)            |
+|      5H,5C,2H,3D,4D | Pair (rank = 5)                        |
+|      3H,3C,3S,2D,4S | Three of a kind (rank = 3)             |
+|      3D,3C,3S,2D,2S | Full house (ranks: 3 of 3 and 2 of 2)  |
+|      2D,2S,3D,3C,3S | Full house (ranks: 3 of 3 and 2 of 2)  |
+|      2C,2S,2H,2D,5C | Four of a kind (rank = 2)              |
+|      5D,6D,7D,8D,9D | Straight flush (suit = D)              |
+|    5H,5C,10C,10S,4C | Two pair (ranks: 5 & 10)               |
